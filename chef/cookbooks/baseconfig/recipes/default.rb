@@ -18,3 +18,8 @@ end
 execute 'ntp_restart' do
   command 'service ntp restart'
 end
+
+# New default html file for nginx.
+cookbook_file "index.html" do
+  path "/var/www/html/index.html"
+end
