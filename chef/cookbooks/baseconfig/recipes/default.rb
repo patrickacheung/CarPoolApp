@@ -12,6 +12,7 @@ package "ntp"
 package "nginx"
 package "tree"
 package "ack-grep"
+package "postgresql"
 cookbook_file "ntp.conf" do
   path "/etc/ntp.conf"
 end
