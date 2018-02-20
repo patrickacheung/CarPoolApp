@@ -3,7 +3,7 @@ This is the template for CMPT 470 projects, providing some basics for Vagrant an
 vagrant up  
 vagraht ssh  
 npm install -g @angular/cli  
-https://csil-git1.cs.surrey.sfu.ca/TeamRocket/cmpt470-angular-te.git  
+git clone https://csil-git1.cs.surrey.sfu.ca/TeamRocket/cmpt470-angular-te.git  
 cd cmpt470-angular-te  
 npm install  
 ng serve  
