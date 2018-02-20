@@ -21,9 +21,9 @@ execute 'ntp_restart' do
 end
 
 # New default html file for nginx.
-cookbook_file "index.html" do
-  path "/var/www/html/index.html"
-end
+#cookbook_file "index.html" do
+#  path "/var/www/html/index.html"
+#end
 
 # nodejs and npm setup.
 execute 'nodejs_repo_script' do
