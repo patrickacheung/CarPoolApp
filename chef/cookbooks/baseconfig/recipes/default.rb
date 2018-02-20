@@ -24,3 +24,24 @@ end
 cookbook_file "index.html" do
   path "/var/www/html/index.html"
 end
+
+# nodejs and npm setup.
+execute 'nodejs_repo_script' do
+  command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
+end
+apt_package 'nodejs'
+# https://stackoverflow.com/a/36896159
+sys_env_file = Chef::Util::FileEdit.new('/etc/environment')
+{
+  'NPM_CONFIG_PREFIX' => '/home/vagrant/.npm-global',
+}.each do |name, val|
+  sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
+  sys_env_file.write_file
+end
+sys_env_file = Chef::Util::FileEdit.new('/home/vagrant/.profile')
+{
+  'export PATH' => '/home/vagrant/.npm-global/bin:$PATH',
+}.each do |name, val|
+  sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
+  sys_env_file.write_file
+end
