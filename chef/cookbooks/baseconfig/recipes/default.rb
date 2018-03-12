@@ -10,9 +10,9 @@ end
 package "wget"
 package "ntp"
 package "nginx"
-package "tree"
+#package "tree"
 package "ack-grep"
-package "postgresql"
+#package "postgresql"
 cookbook_file "ntp.conf" do
   path "/etc/ntp.conf"
 end
