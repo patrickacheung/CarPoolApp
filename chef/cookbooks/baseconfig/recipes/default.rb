@@ -10,9 +10,7 @@ end
 package "wget"
 package "ntp"
 package "nginx"
-#package "tree"
 package "ack-grep"
-#package "postgresql"
 cookbook_file "ntp.conf" do
   path "/etc/ntp.conf"
 end
@@ -20,16 +18,13 @@ execute 'ntp_restart' do
   command 'service ntp restart'
 end
 
-# New default html file for nginx.
-#cookbook_file "index.html" do
-#  path "/var/www/html/index.html"
-#end
-
 # nodejs and npm setup.
 execute 'nodejs_repo_script' do
   command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
 end
 apt_package 'nodejs'
+
+# Shell and env variables when logged in.
 # https://stackoverflow.com/a/36896159
 sys_env_file = Chef::Util::FileEdit.new('/etc/environment')
 {
@@ -44,4 +39,11 @@ sys_env_file = Chef::Util::FileEdit.new('/home/vagrant/.profile')
 }.each do |name, val|
   sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
   sys_env_file.write_file
+end
+
+# Install Angular.
+execute 'install_angular' do
+  user 'vagrant'
+  environment ({'HOME' => '/home/vagrant', 'USER' => 'vagrant', 'NPM_CONFIG_PREFIX' => '/home/vagrant/.npm-global'}) 
+  command 'npm install -g @angular/cli'
 end

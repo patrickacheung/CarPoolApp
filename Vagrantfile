@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # If you need to more than double the defaults for this course, you have
   # done something wrong.
-  cpus = "1"
+  cpus = "2"
   memory = "2048" # MB #https://stackoverflow.com/a/30770699
   config.vm.provider :virtualbox do |vb|
     vb.customize ["modifyvm", :id, "--cpus", cpus, "--memory", memory]
