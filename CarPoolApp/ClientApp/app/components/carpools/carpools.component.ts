@@ -5,7 +5,8 @@ import { CarpoolService } from '../carpool.service';
 
 @Component({
   selector: 'carpools',
-  templateUrl: './carpools.component.html'
+  templateUrl: './carpools.component.html',
+  styleUrls: ['./carpools.component.css']
 })
 export class CarpoolsComponent implements OnInit {
   carpools: Carpool[];
