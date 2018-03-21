@@ -1,6 +1,6 @@
 <h2>Latest Rides</h2>
 <ul class="carpools">
-    <li *ngFor="let carpool of carpools">
+    <li *ngFor="let carpool of carpools | slice:0:5">
         <span>{{ carpool.id }} : {{ carpool.driver }}</span>
     </li>
 </ul>
