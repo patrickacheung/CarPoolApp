@@ -7,8 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+/*import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
+import { CounterComponent } from './components/counter/counter.component';*/
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { CarpoolsComponent } from './components/carpools/carpools.component'
@@ -19,8 +19,8 @@ import { CarpoolService } from './components/carpool.service';
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
+        /*CounterComponent,
+        FetchDataComponent,*/
         HomeComponent,
         RegisterComponent,
         LoginComponent,
