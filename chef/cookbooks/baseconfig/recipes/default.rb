@@ -9,7 +9,7 @@ end
 # Base configuration recipe in Chef.
 package "wget"
 package "ntp"
-#package "nginx"
+package "nginx"
 #package "git"
 package "ack-grep"
 cookbook_file "ntp.conf" do
@@ -20,27 +20,27 @@ execute 'ntp_restart' do
 end
 
 # nodejs and npm setup.
-#execute 'nodejs_repo_script' do
-#  command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
-#end
-#apt_package 'nodejs'
+execute 'nodejs_repo_script' do
+  command 'curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -'
+end
+apt_package 'nodejs'
 
 # Shell and env variables when logged in.
 # https://stackoverflow.com/a/36896159
-#sys_env_file = Chef::Util::FileEdit.new('/etc/environment')
-#{
-#  'NPM_CONFIG_PREFIX' => '/home/vagrant/.npm-global',
-#}.each do |name, val|
-#  sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
-#  sys_env_file.write_file
-#end
-#sys_env_file = Chef::Util::FileEdit.new('/home/vagrant/.profile')
-#{
-#  'export PATH' => '/home/vagrant/.npm-global/bin:$PATH',
-#}.each do |name, val|
-#  sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
-#  sys_env_file.write_file
-#end
+sys_env_file = Chef::Util::FileEdit.new('/etc/environment')
+{
+  'NPM_CONFIG_PREFIX' => '/home/vagrant/.npm-global',
+}.each do |name, val|
+  sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
+  sys_env_file.write_file
+end
+sys_env_file = Chef::Util::FileEdit.new('/home/vagrant/.profile')
+{
+  'export PATH' => '/home/vagrant/.npm-global/bin:$PATH',
+}.each do |name, val|
+  sys_env_file.insert_line_if_no_match /^#{name}\=/, "#{name}=\"#{val}\""
+  sys_env_file.write_file
+end
 
 # Install Angular.
 #execute 'install_angular' do
@@ -69,4 +69,18 @@ execute 'apt_update' do
   command 'apt-get update'
 end
 apt_package 'dotnet-sdk-2.1.4'
+
+# Build and run project.
+execute 'run_npm_install' do
+  command 'npm install'
+  cwd '/home/vagrant/CarPoolApp/CarPoolApp'
+end
+execute 'run_dotnet_build' do
+  command 'dotnet build --no-incremental'
+  cwd '/home/vagrant/CarPoolApp/CarPoolApp'
+end
+execute 'run_dotnet_run' do
+  command 'dotnet run'
+  cwd '/home/vagrant/CarPoolApp/CarPoolApp'
+end
 
