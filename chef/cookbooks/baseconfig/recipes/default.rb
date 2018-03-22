@@ -75,12 +75,12 @@ execute 'run_npm_install' do
   command 'npm install'
   cwd '/home/vagrant/CarPoolApp/CarPoolApp'
 end
-execute 'run_dotnet_build' do
-  command 'dotnet build --no-incremental'
-  cwd '/home/vagrant/CarPoolApp/CarPoolApp'
-end
-execute 'run_dotnet_run' do
-  command 'dotnet run &'
+#execute 'run_dotnet_build' do
+#  command 'dotnet build --no-incremental'
+#  cwd '/home/vagrant/CarPoolApp/CarPoolApp'
+#end
+execute 'publish_dotnet' do
+  command 'dotnet publish --configuration Release --output bin -r linux-x64'
   cwd '/home/vagrant/CarPoolApp/CarPoolApp'
 end
 
