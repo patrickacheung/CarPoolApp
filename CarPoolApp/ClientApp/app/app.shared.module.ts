@@ -12,6 +12,7 @@ import { CounterComponent } from './components/counter/counter.component';*/
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { CarpoolsComponent } from './components/carpools/carpools.component'
+import { CreateCarpoolComponent } from './components/createcarpool/createcarpool.component'
 
 import { CarpoolService } from './components/carpool.service';
 
@@ -24,7 +25,8 @@ import { CarpoolService } from './components/carpool.service';
         HomeComponent,
         RegisterComponent,
         LoginComponent,
-        CarpoolsComponent
+        CarpoolsComponent,
+        CreateCarpoolComponent
     ],
     imports: [
         CommonModule,
@@ -35,6 +37,7 @@ import { CarpoolService } from './components/carpool.service';
             { path: 'home', component: HomeComponent },
             /*{ path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },*/
+            { path: 'createcarpool', component: CreateCarpoolComponent },
             { path: 'register', component: RegisterComponent },
             { path: 'login', component: LoginComponent },
             { path: '**', redirectTo: 'home' }

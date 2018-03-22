@@ -17,6 +17,11 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    <a [routerLink]="['/createcarpool']">
+                        <span class='glyphicon glyphicon-plus'></span> Create a Carpool
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']" data-toggle="collapse" data-target=".navbar-collapse.in">
                     <a [routerLink]="['/register']">
                         <span class='glyphicon glyphicon-user'></span> Register
                     </a>
@@ -27,11 +32,11 @@
                     </a>
                 </li>
                 <!--
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/fetch-data']">
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
-                    </a>
-                </li> -->
+    <li [routerLinkActive]="['link-active']">
+        <a [routerLink]="['/fetch-data']">
+            <span class='glyphicon glyphicon-th-list'></span> Fetch data
+        </a>
+    </li> -->
             </ul>
         </div>
     </div>
