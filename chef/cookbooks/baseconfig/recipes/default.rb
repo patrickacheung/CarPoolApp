@@ -80,7 +80,7 @@ execute 'run_dotnet_build' do
   cwd '/home/vagrant/CarPoolApp/CarPoolApp'
 end
 execute 'run_dotnet_run' do
-  command 'dotnet run'
+  command 'dotnet run &'
   cwd '/home/vagrant/CarPoolApp/CarPoolApp'
 end
 
