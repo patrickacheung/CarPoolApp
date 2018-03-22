@@ -18,6 +18,15 @@ end
 execute 'ntp_restart' do
   command 'service ntp restart'
 end
+# Reconfigure nginx for our application.
+cookbook_file '/etc/nginx/sites-available/default' do
+  source 'nginx-carpoolapp'
+  action :create
+end
+# Restart nginx service to reload config.
+service 'nginx' do
+  action :restart
+end
 
 # nodejs and npm setup.
 execute 'nodejs_repo_script' do
