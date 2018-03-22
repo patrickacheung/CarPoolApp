@@ -93,3 +93,12 @@ execute 'publish_dotnet' do
   cwd '/home/vagrant/CarPoolApp/CarPoolApp'
 end
 
+# Run app as a service.
+cookbook_file '/etc/systemd/system/kestrel-carpoolapp.service' do
+  source 'carpoolapp-service'
+  action :create
+end
+systemd_unit 'kestrel-carpoolapp.service' do
+  action :start
+end
+
