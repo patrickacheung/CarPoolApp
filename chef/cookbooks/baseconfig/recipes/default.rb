@@ -60,7 +60,7 @@ apt_repository 'dot_net_core2' do
   action :add
 end
 
-# MS SQL server apt repo setup.
+# MS SQL server and CLI  apt repo setup.
 apt_repository 'ms_sql_server' do
   uri 'https://packages.microsoft.com/ubuntu/16.04/mssql-server-2017'
   arch 'amd64'
@@ -71,11 +71,20 @@ apt_repository 'ms_sql_server' do
 end
 
 # Install required packages to run project.
+# https://stackoverflow.com/a/42383714
+ENV['ACCEPT_EULA'] = 'y'
+ENV['DEBIAN_FRONTEND'] = 'noninteractive'
 apt_package 'nodejs'
 apt_package 'dotnet-sdk-2.1.4'
 apt_package 'mssql-server'
+apt_package 'mssql-tools'
+apt_package 'unixodbc-dev'
 
-# Configure ms sql server.
+# Configure ms sql server - unattended install.
+# Placing password here is bad :(
+execute 'setup mssql server' do
+  command "sudo MSSQL_PID=Developer ACCEPT_EULA=Y MSSQL_SA_PASSWORD='#Password3' /opt/mssql/bin/mssql-conf -n setup"
+end
 
 # Build and publish project.
 execute 'run_npm_install' do
@@ -96,6 +105,8 @@ systemd_unit 'kestrel-carpoolapp.service' do
   action :start
 end
 execute 'check_app_status' do
-  command 'systemcl status kestrel-carpoolapp.service'
+  command 'systemctl status kestrel-carpoolapp.service'
+  action :nothing
+  subscribes :run, 'systemd_unit[kestrel-carpoolapp.service]', :delayed
 end
 
