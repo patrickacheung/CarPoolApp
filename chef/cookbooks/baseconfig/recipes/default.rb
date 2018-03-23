@@ -82,8 +82,12 @@ apt_package 'unixodbc-dev'
 
 # Configure ms sql server - unattended install.
 # Placing password here is bad :(
+mssql_pwd = '#Password3'
 execute 'setup mssql server' do
-  command "sudo MSSQL_PID=Developer ACCEPT_EULA=Y MSSQL_SA_PASSWORD='#Password3' /opt/mssql/bin/mssql-conf -n setup"
+  command "sudo MSSQL_PID=Developer ACCEPT_EULA=Y MSSQL_SA_PASSWORD='#{mssql_pwd}' /opt/mssql/bin/mssql-conf -n setup"
+end
+execute 'import sql' do
+  command "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '#{mssql_pwd}' -i '/home/vagrant/CarPoolApp/createTables.sql'"
 end
 
 # Build and publish project.
