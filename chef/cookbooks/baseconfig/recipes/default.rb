@@ -108,9 +108,21 @@ end
 systemd_unit 'kestrel-carpoolapp.service' do
   action :start
 end
+ruby_block 'server_first_ping_wait' do
+  block do
+    sleep(30)
+  end
+  subscribes :run, 'systemd_unit[kestrel-carpoolapp.service]', :delayed
+  action :nothing
+end
 execute 'check_app_status' do
   command 'systemctl status kestrel-carpoolapp.service'
   action :nothing
-  subscribes :run, 'systemd_unit[kestrel-carpoolapp.service]', :delayed
+  subscribes :run, 'ruby_block[server_first_ping_wait]', :delayed
+end
+execute 'server_first_ping' do # first request is super slow
+  command 'curl localhost'
+  action :nothing
+  subscribes :run, 'execute[check_app_status]', :delayed
 end
 
