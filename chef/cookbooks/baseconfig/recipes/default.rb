@@ -102,3 +102,17 @@ systemd_unit 'kestrel-carpoolapp.service' do
   action :start
 end
 
+# MS SQL server installation.
+apt_repository 'ms_sql_server' do
+  uri 'https://packages.microsoft.com/ubuntu/16.04/mssql-server-2017'
+  arch 'amd64'
+  distribution 'xenial'
+  components ['main']
+  key 'https://packages.microsoft.com/keys/microsoft.asc'
+  action :add
+end
+execute 'apt_update' do
+  command 'apt-get update'
+end
+apt_package 'mssql-server'
+
