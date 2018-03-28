@@ -1,7 +1,20 @@
 <h2>Latest Rides</h2>
 <div class="carpools">
-    <div class="bs-callout bs-callout-default"
+    <div class="bs-callout bs-callout-default container-fluid"
          *ngFor="let carpool of carpools | slice:0:5">
-        <span>{{ carpool.id }} : {{ carpool.driver }}</span>
+        <div class="profile col-sm-4">
+            <img src="https://t3.ftcdn.net/jpg/00/64/67/80/160_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg"
+                 class="img-thumbnail img" alt="profile pic">
+            {{ carpool.driver }}
+        </div>
+        <div class="vehicle col-sm-4">
+            <img src="https://icdn-5.motor1.com/images/mgl/A2r49/s1/wcf-lada-classic-lada-21071.jpg"
+                 class="img-thumbnail img" alt="vehicle pic">
+            {{ carpool.vehicle }}
+        </div>
+        <div class="details col-sm-4"> 
+            {{ carpool.campus }}
+            {{ carpool.datetime }}
+        </div>
     </div>
 </div>
