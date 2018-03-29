@@ -31,8 +31,11 @@
                 <div>
                     Leaving on {{ carpool.datetime }}
                 </div>
-                <div>
-                    {{ carpool.seatsRemaining }} seats remaining
+                <div [ngPlural]="carpool.seatsRemaining">
+                    <ng-template ngPluralCase="=0">No seats</ng-template>
+                    <ng-template ngPluralCase="=1">{{ carpool.seatsRemaining }} seat</ng-template>
+                    <ng-template ngPluralCase="other">{{ carpool.seatsRemaining }} seats</ng-template>
+                    remaining
                 </div>
             </div>
             <div class="row carpool-comp-detail">
