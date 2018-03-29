@@ -17,6 +17,11 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    <a [routerLink]="['/viewallcarpools']">
+                        <span class='glyphicon glyphicon-search'></span> View all Carpools
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']" data-toggle="collapse" data-target=".navbar-collapse.in">
                     <a [routerLink]="['/createcarpool']">
                         <span class='glyphicon glyphicon-plus'></span> Create a Carpool
                     </a>
