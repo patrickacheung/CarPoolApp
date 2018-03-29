@@ -61,6 +61,19 @@
     display: none;
 }
 
+.carpool-heading {
+    font-weight: bold;
+    padding-bottom: 1em;
+}
+
+.carpool-comp-detail {
+    padding-top: 0.5em;
+}
+
+.carpool-details {
+    height: 140px; /* same height as img */
+}
+
 @media (min-width: 768px) {
     .img {
         height: 140px;

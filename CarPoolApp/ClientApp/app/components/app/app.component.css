@@ -13,6 +13,11 @@
     border-color: #4189C7 !important;
 }
 
+.btn-info:hover {
+    background-color: rgb(52, 109, 158) !important;
+    border-color: rgb(52, 109, 158) !important;
+}
+
 .footer {
     background-color: #222; /* bootstrap default navbar-inverse color */
     border-color: #080808; /* bootstrap inverse default */
