@@ -5,6 +5,17 @@
 .col-centered {
     float: none;
     margin: 0 auto;
+    min-height: calc(100vh - 80px); /* height of footer */
+}
+
+.footer {
+    background-color: #222; /* bootstrap default navbar-inverse color */
+    border-color: #080808; /* bootstrap inverse default */
+    color: #9d9d9d; /* boot strap inverse default */
+    height: 80px; /* height of footer */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 30px;
 }
 
 /*@media (max-width: 767px) {
