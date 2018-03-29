@@ -8,6 +8,11 @@
     min-height: calc(100vh - 80px); /* height of footer */
 }
 
+.btn-info {
+    background-color: #4189C7 !important; /* bootstrap inverse default */
+    border-color: #4189C7 !important;
+}
+
 .footer {
     background-color: #222; /* bootstrap default navbar-inverse color */
     border-color: #080808; /* bootstrap inverse default */
@@ -15,7 +20,10 @@
     height: 80px; /* height of footer */
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 30px;
+    padding-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /*@media (max-width: 767px) {
