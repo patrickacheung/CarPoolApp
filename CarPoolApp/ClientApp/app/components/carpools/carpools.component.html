@@ -1,7 +1,47 @@
 <h2>Latest Rides</h2>
 <div class="carpools">
-    <div class="bs-callout bs-callout-default"
+    <div class="bs-callout bs-callout-default container-fluid"
          *ngFor="let carpool of carpools | slice:0:5">
-        <span>{{ carpool.id }} : {{ carpool.driver }}</span>
+        <div class="profile col-sm-3">
+            <div class="row carpool-heading">Driver</div>
+            <div class="row">
+                <img src="https://t3.ftcdn.net/jpg/00/64/67/80/160_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg"
+                     class="img-thumbnail img" alt="profile pic">
+            </div>
+            <div class="row carpool-comp-detail">
+                {{ carpool.driver }}
+            </div>
+        </div>
+        <div class="vehicle col-sm-3">
+            <div class="row carpool-heading">Vehicle</div>
+            <div class="row">
+                <img src="https://icdn-5.motor1.com/images/mgl/A2r49/s1/wcf-lada-classic-lada-21071.jpg"
+                     class="img-thumbnail img" alt="vehicle pic">
+            </div>
+            <div class="row carpool-comp-detail">
+                {{ carpool.vehicle }}
+            </div>
+        </div>
+        <div class="details col-sm-6">
+            <div class="row carpool-heading">Carpool Details</div>
+            <div class="row carpool-details">
+                <div>
+                    {{ carpool.campus }} Campus
+                </div>
+                <div>
+                    Leaving on {{ carpool.datetime }}
+                </div>
+                <div [ngPlural]="carpool.seatsRemaining">
+                    <ng-template ngPluralCase="=0">No seats</ng-template>
+                    <ng-template ngPluralCase="=1">{{ carpool.seatsRemaining }} seat</ng-template>
+                    <ng-template ngPluralCase="other">{{ carpool.seatsRemaining }} seats</ng-template>
+                    remaining
+                </div>
+            </div>
+            <div class="row carpool-comp-detail">
+                <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seatsRemaining == 0}">
+                    Message Driver</button>
+            </div>
+        </div>
     </div>
 </div>
