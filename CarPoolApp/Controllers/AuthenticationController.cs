@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using CarPoolApp.Libraries;
 using CarPoolApp.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using static CarPoolApp.Libraries.Authentication;
 
 namespace CarPoolApp.Controllers
 {
@@ -19,11 +20,21 @@ namespace CarPoolApp.Controllers
     [Route("api/[controller]")]
     public class AuthenticationController : Controller
     {
-        private IConfiguration Configuration { get; set; }
+        public class Account
+        {
+            public string Username { get; set; }
+            public string EmailAddress { get; set; }
+            public string Password { get; set; }
+            public string PhoneNumber { get; set; }
+        }
 
-        public AuthenticationController(IConfiguration configuration)
+        private IConfiguration Configuration { get; set; }
+        private PersonContext PersonContext { get; set; }
+
+        public AuthenticationController(IConfiguration configuration, PersonContext personContext)
         {
             Configuration = configuration;
+            PersonContext = personContext;
         }
 
         [AllowAnonymous]
@@ -31,30 +42,51 @@ namespace CarPoolApp.Controllers
         public IActionResult Authenticate([FromBody] Account account)
         {
             IActionResult response = Unauthorized();
-            string token = getToken(account);
+
+            Person person = Authentication.GetPerson(PersonContext, account.Username);
+            if (person == null || !Authentication.IsPasswordCorrect(person, account.Password))
+            {
+                return response;
+            }
+
+            string token = getToken(person);
             response = Ok(new { token = token });
+            HttpContext.Session.SetString(token, person.UserName);
             return response;
         }
 
         [HttpGet("[action]")]
-        public IActionResult Test()
+        public async Task<IActionResult> Test()
         {
-            return Ok(new { message = "Hello World!" });
+            string token = await HttpContext.GetTokenAsync("access_token");
+            return Ok(new { UserName = HttpContext.Session.GetString(token) });
         }
 
         [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult Register([FromBody] Account account)
         {
+            Password password = Authentication.GetNewPassword(account.Password);
+            Person person = new Person
+            {
+                UserName = account.Username,
+                Email = account.EmailAddress,
+                PasswordHash = password.Hash,
+                Salt = password.Salt
+            };
+
+            
+            Authentication.AddNewUser(PersonContext, person);
+
             return Ok();
         }
 
-        private string getToken(Account account)
+        private string getToken(Person person)
         {
             Claim[] claims = new []
             {
-                new Claim(JwtRegisteredClaimNames.Sub, account.Username),
-                new Claim(JwtRegisteredClaimNames.Email, account.EmailAddress),
+                new Claim(JwtRegisteredClaimNames.Sub, person.UserName),
+                new Claim(JwtRegisteredClaimNames.Email, person.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

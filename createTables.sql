@@ -6,10 +6,12 @@ Create table Car (
 )
 
 Create table Person (
-	UserID int,
-	Username varchar(60) NOT NULL,
-	email varchar(60),
-	PRIMARY KEY (UserID)
+	UserID int IDENTITY(1,1),
+	Username nvarchar(max) NOT NULL,
+	PasswordHash nvarchar(max) NOT NULL,
+	Salt nvarchar(max) NOT NULL,
+	Email nvarchar(max) NOT NULL,
+	PRIMARY KEY(userID)
 );
 
 Create table Owns (
