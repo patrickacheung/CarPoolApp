@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Login } from './login';
 
@@ -13,7 +14,7 @@ import 'rxjs/add/operator/catch';
 export class LoginService {
     // Adapted from: https://netbasal.com/angular-2-persist-your-login-status-with-behaviorsubject-45da9ec43243
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private router: Router) { }
 
     private loginUrl = 'http://localhost:5000/api/Authentication/Authenticate';
     private isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
@@ -28,6 +29,7 @@ export class LoginService {
                 //console.log(res.json().token);
                 localStorage.setItem('token', res.json().token);
                 this.isLoginSubject.next(true);
+                this.router.navigate(['home']);
             }, () => {
                 this.isLoginSubject.next(false);
             });
