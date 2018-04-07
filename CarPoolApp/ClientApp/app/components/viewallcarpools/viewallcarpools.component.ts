@@ -12,6 +12,7 @@ import { Search } from '../Search';
 
 export class ViewAllCarpoolsComponent implements OnInit {
 
+    originalCarpools: Carpool[];
     carpools: Carpool[];
     location: string;
     searchModel: Search;
@@ -28,15 +29,31 @@ export class ViewAllCarpoolsComponent implements OnInit {
     getCarpools(): void {
         this.carpoolService.getCarpools()
             .subscribe(carpools => this.carpools = carpools);
+        this.originalCarpools = this.carpools;
+    }
+
+    filter(model: Search): void {
+        this.carpools = this.carpools.filter(
+            carpool => ((model.driver == null || (model.driver === "")) || carpool.driver.indexOf(model.driver) >= 0)
+                && ((model.location == null || (model.location === "")) || carpool.campus.indexOf(model.location) >= 0)
+                && ((model.arrivalTime == null || (model.arrivalTime === "")) || carpool.datetime.toString().indexOf(model.arrivalTime) >= 0)
+                && ((model.day == null || (model.day === "")) || carpool.datetime.toString().indexOf(model.day) >= 0));
     }
 
     onSubmit(): void {
 
         this.searchModel.day = this.day;
         this.searchModel.location = this.location;
-        
+
         console.log(this.searchModel.driver);
+        console.log(this.searchModel.day);
         console.log(this.searchModel.arrivalTime);
+        console.log(this.searchModel.location);
+
+        this.carpools = this.originalCarpools;
+        this.filter(this.searchModel);
+
+
     }
 
     public setLocation(locationInput: string): void{

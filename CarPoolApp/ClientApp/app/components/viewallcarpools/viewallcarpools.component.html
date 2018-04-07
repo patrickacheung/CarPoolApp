@@ -14,13 +14,14 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="campusMenu">
-                    <li (click)="setDay('Monday')"><a>Monday</a></li>
-                    <li (click)="setDay('Tuesday')"><a>Tuesday</a></li>
-                    <li (click)="setDay('Wednesday')"><a>Wednesday</a></li>
-                    <li (click)="setDay('Thursday')"><a>Thursday</a></li>
-                    <li (click)="setDay('Friday')"><a>Friday</a></li>
-                    <li (click)="setDay('Saturday')"><a>Saturday</a></li>
-                    <li (click)="setDay('Sunday')"><a>Sunday</a></li>
+                    <li (click)="setDay('')"><a>Any</a></li>
+                    <li (click)="setDay('Mon')"><a>Monday</a></li>
+                    <li (click)="setDay('Tues')"><a>Tuesday</a></li>
+                    <li (click)="setDay('Wed')"><a>Wednesday</a></li>
+                    <li (click)="setDay('Thur')"><a>Thursday</a></li>
+                    <li (click)="setDay('Fri')"><a>Friday</a></li>
+                    <li (click)="setDay('Sat')"><a>Saturday</a></li>
+                    <li (click)="setDay('Sun')"><a>Sunday</a></li>
                 </ul>
             </div>
         </div>
@@ -38,9 +39,10 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="campusMenu">
+                    <li (click)="setLocation('')"><a>Any</a></li>
                     <li (click)="setLocation('Burnaby')"><a>Burnaby</a></li>
                     <li (click)="setLocation('Surrey')"><a>Surrey Central</a></li>
-                    <li (click)="setLocation('Vancouver')"><a>Harbour Centre</a></li>
+                    <li (click)="setLocation('Harbour Centre')"><a>Harbour Centre</a></li>
                 </ul>
             </div>
         </div>
