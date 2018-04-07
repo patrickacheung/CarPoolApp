@@ -41,6 +41,7 @@ namespace CarPoolApp
                 });
 
             services.AddDbContext<PersonContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CarPoolContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
@@ -78,6 +79,10 @@ namespace CarPoolApp
                 routes.MapRoute(
                     name: "authentication",
                     template: "api/{controller=Authentication}/{action}");
+
+                routes.MapRoute(
+                    name: "carPool",
+                    template: "api/{controller=CarPool}/{action}");
             });
         }
     }

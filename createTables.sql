@@ -1,32 +1,38 @@
-Create table Car (
-	CarID int,
-	Color varchar(60),
-	Seats int,
-	PRIMARY KEY (CarID)
-)
 
 Create table Person (
-	UserID int IDENTITY(1,1),
+	ID int IDENTITY(1,1),
 	Username nvarchar(max) NOT NULL,
 	PasswordHash nvarchar(max) NOT NULL,
 	Salt nvarchar(max) NOT NULL,
 	Email nvarchar(max) NOT NULL,
-	PRIMARY KEY(userID)
+	PRIMARY KEY(ID)
 );
 
-Create table Owns (
-	UserID int,
-	CarID int,
-	PRIMARY KEY (UserID, CarID)
-)
-
-Create table Carpool (
-	CarpoolID int,
-	Driver int,
-	CarID int,
-	StartLocation varchar(60),
-	EndLocation varchar(60),
-	PRIMARY KEY (CarpoolID),
-	CONSTRAINT DriverForeignKey FOREIGN KEY (Driver) REFERENCES Person,
-	CONSTRAINT CarForeignKey FOREIGN KEY (CarID) REFERENCES Car
+Create table CarPool (
+	ID int IDENTITY(1, 1),
+	DriverID int,
+	Seats int NOT NULL,
+	CarDescription nvarchar(max) NOT NULL,
+	StartLocation nvarchar(max) NOT NULL,
+	EndLocation nvarchar(max) NOT NULL,
+	AdditionalDetails nvarchar(max),
+	ArrivalTime time NOT NULL,
+	PRIMARY KEY(ID),
+	FOREIGN KEY(DriverID) REFERENCES Person(ID)
 );
+
+Create table WeekDay (
+	ID int IDENTITY(1, 1),
+	Name nvarchar(50) UNIQUE NOT NULL,
+	PRIMARY KEY(ID)
+);
+
+Create table Occurance (
+	CarPoolID int,
+	DayID int,
+	PRIMARY KEY(CarPoolID, DayID),
+	FOREIGN KEY(CarPoolID) REFERENCES CarPool(ID),
+	FOREIGN KEY(DayID) REFERENCES WeekDay(ID)
+);
+
+INSERT INTO WeekDay (Name) VALUES ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday'), ('Sunday')

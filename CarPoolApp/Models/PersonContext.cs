@@ -4,12 +4,12 @@ namespace CarPoolApp.Models
 {
     public class PersonContext : DbContext
     {
+        public DbSet<Person> Persons { get; set; }
+
         public PersonContext(DbContextOptions<PersonContext> options) : base(options)
         {
 
         }
-
-        public DbSet<Person> Persons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
