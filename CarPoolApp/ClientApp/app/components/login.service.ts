@@ -25,9 +25,12 @@ export class LoginService {
     }
 
     login(username: string, password: string): void {
+        if (!this.isLoginCorrectSubject.value) {
+            this.isLoginCorrectSubject.next(true);
+        }
+
         this.http.post(this.loginUrl, {Username: username, Password: password})
             .subscribe((res: Response) => {
-                //console.log(res.json().token);
                 localStorage.setItem('token', res.json().token);
                 this.isLoginSubject.next(true);
                 this.router.navigate(['home']);
