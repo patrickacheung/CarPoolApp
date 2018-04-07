@@ -36,12 +36,14 @@ export class ViewAllCarpoolsComponent implements OnInit {
         console.log(this.location);
     }
 
-    setLocation(locationInput: string): void{
+    public setLocation(locationInput: string): void{
         this.location = locationInput;
+        console.log("Inside set Location");
     }
 
-    setDay(dayInput: string): void {
+    public setDay(dayInput: string): void {
         this.day = dayInput;
+        console.log("Inside set Day");
     }
 
 
