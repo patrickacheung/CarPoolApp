@@ -1,7 +1,11 @@
+DROP TABLE IF EXISTS Occurance;
+DROP TABLE IF EXISTS CarPool;
+DROP TABLE IF EXISTS WeekDay;
+DROP TABLE IF EXISTS Person;
 
 Create table Person (
 	ID int IDENTITY(1,1),
-	Username nvarchar(max) NOT NULL,
+	Username nvarchar(50) UNIQUE NOT NULL,
 	PasswordHash nvarchar(max) NOT NULL,
 	Salt nvarchar(max) NOT NULL,
 	Email nvarchar(max) NOT NULL,
