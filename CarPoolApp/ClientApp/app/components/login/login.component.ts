@@ -5,15 +5,18 @@ import { LoginService } from '../login.service';
 
 @Component({
     selector: 'login',
-    templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
     loginModel: Login;
     isLoggedIn: boolean;
     isLoginCorrect: boolean;
+    showLogin: boolean;
 
     constructor(private loginService: LoginService) {
         this.loginModel = new Login();
+        this.showLogin = false;
     }
 
     ngOnInit() {
@@ -23,6 +26,10 @@ export class LoginComponent implements OnInit {
 
         this.loginService.isLoginCorrect().subscribe((isLoginCorrect: boolean) => {
             this.isLoginCorrect = isLoginCorrect;
+        });
+
+        this.loginService.showLogin().subscribe((showLogin: boolean) => {
+            this.showLogin = showLogin;
         });
     }
 

@@ -15,6 +15,7 @@ export class LoginService {
     private loginUrl = 'http://localhost:5000/api/Authentication/Authenticate';
     private isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
     private isLoginCorrectSubject = new BehaviorSubject<boolean>(true);
+    private showLoginSubject = new BehaviorSubject<boolean>(false);
 
     isLoggedIn(): Observable<boolean> {
         return this.isLoginSubject.asObservable();
@@ -22,6 +23,10 @@ export class LoginService {
 
     isLoginCorrect(): Observable<boolean> {
         return this.isLoginCorrectSubject.asObservable();
+    }
+
+    showLogin(): Observable<boolean> {
+        return this.showLoginSubject.asObservable();
     }
 
     login(username: string, password: string): void {
@@ -32,8 +37,13 @@ export class LoginService {
         this.http.post(this.loginUrl, {Username: username, Password: password})
             .subscribe((res: Response) => {
                 localStorage.setItem('token', res.json().token);
-                this.isLoginSubject.next(true);
-                this.router.navigate(['home']);
+                this.showLoginSubject.next(true);
+
+                setTimeout(() => {
+                    this.isLoginSubject.next(true);
+                    this.showLoginSubject.next(false);
+                    this.router.navigate(['home']);
+                }, 1500);
             }, () => {
                 this.isLoginCorrectSubject.next(false);
                 this.isLoginSubject.next(false);
@@ -43,7 +53,11 @@ export class LoginService {
     logout(): void {
         localStorage.removeItem('token');
         this.isLoginCorrectSubject.next(true);
-        this.isLoginSubject.next(false);
+
+        setTimeout(() => {
+            this.isLoginSubject.next(false);
+            this.router.navigate(['home']);
+        }, 1500);
     }
 
     getToken(): string | null {
