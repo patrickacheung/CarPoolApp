@@ -42,10 +42,7 @@ namespace CarPoolApp
 
             services.AddDbContext<PersonContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc()
-                .AddSessionStateTempDataProvider();
-
-            services.AddSession();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +67,6 @@ namespace CarPoolApp
             }
 
             app.UseAuthentication();
-            app.UseSession();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -82,10 +78,6 @@ namespace CarPoolApp
                 routes.MapRoute(
                     name: "authentication",
                     template: "api/{controller=Authentication}/{action}");
-
-                //routes.MapSpaFallbackRoute(
-                //    name: "spa-fallback",
-                //    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }
