@@ -50,6 +50,7 @@ namespace CarPoolApp.Controllers
         }
 
         [HttpGet("[action]")]
+        [AllowAnonymous]
         public IActionResult Get([FromQuery(Name = "param")] string paramString)
         {
             List<CarPoolInfo> carPoolInfos = CarPoolManager.getCarPoolInfos(CarPoolContext, PersonContext);
@@ -84,7 +85,6 @@ namespace CarPoolApp.Controllers
         }
 
         [HttpPost("[action]")]
-        [AllowAnonymous]
         public IActionResult Email([FromBody] CarPoolInfo carPoolInfo)
         {
             Person driver = PersonContext.Persons.Where(p => p.UserName.Equals(carPoolInfo.Driver)).FirstOrDefault();

@@ -46,13 +46,6 @@ namespace CarPoolApp.Controllers
             return response;
         }
 
-        [HttpGet("[action]")]
-        public IActionResult Test()
-        {
-            string username = Authentication.getUserName(HttpContext);
-            return Ok(new { UserName = username });
-        }
-
         [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult Register([FromBody] Account account)
