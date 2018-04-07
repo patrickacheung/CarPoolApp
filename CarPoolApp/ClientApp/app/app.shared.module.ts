@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -16,6 +16,7 @@ import { CreateCarpoolComponent } from './components/createcarpool/createcarpool
 
 import { CarpoolService } from './components/carpool.service';
 import { LoginService } from './components/login.service';
+import { RegisterService } from './components/register.service';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { LoginService } from './components/login.service';
         CommonModule,
         HttpModule,
         FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
@@ -46,7 +48,8 @@ import { LoginService } from './components/login.service';
     ],
     providers: [
         CarpoolService,
-        LoginService
+        LoginService,
+        RegisterService
     ]
 })
 export class AppModuleShared {
