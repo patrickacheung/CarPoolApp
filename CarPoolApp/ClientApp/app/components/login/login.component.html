@@ -7,12 +7,14 @@
     <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" id="username" required
-               [(ngModel)]="loginModel.username" name="username">
+               [(ngModel)]="loginModel.username" name="username" #username="ngModel">
     </div>
+    <div class="alert alert-danger notif-form" *ngIf="!username.valid && username.touched">Username is required</div>
     <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" required
-               [(ngModel)]="loginModel.password" name="password">
+               [(ngModel)]="loginModel.password" name="password" #password="ngModel">
     </div>
+    <div class="alert alert-danger notif-form" *ngIf="!password.valid && password.touched">Password is required</div>
     <button type="submit" class="btn btn-success" [disabled]="!login.form.valid">Login</button>
 </form>
