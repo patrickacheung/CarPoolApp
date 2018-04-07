@@ -6,10 +6,6 @@ import { Router } from '@angular/router';
 
 import { Login } from './login';
 
-// Import RxJs required methods
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
 @Injectable()
 export class LoginService {
     // Adapted from: https://netbasal.com/angular-2-persist-your-login-status-with-behaviorsubject-45da9ec43243
