@@ -7,6 +7,7 @@ using CarPoolApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CarPoolApp.Controllers
 {
@@ -46,9 +47,37 @@ namespace CarPoolApp.Controllers
         }
 
         [HttpGet("[action]")]
-        public IActionResult Get()
+        [AllowAnonymous]
+        public IActionResult Get([FromQuery(Name = "param")] string paramString)
         {
             List<CarPoolInfo> carPoolInfos = CarPoolManager.getCarPoolInfos(CarPoolContext, PersonContext);
+            if (paramString == null)
+            {
+                return Ok(carPoolInfos);
+            }
+
+            CarPoolInfo param = JsonConvert.DeserializeObject<CarPoolInfo>(paramString);
+            if (param.Driver != null)
+            {
+                carPoolInfos.RemoveAll(c => !c.Driver.Equals(param.Driver));
+            }
+
+            if (param.EndLocation != null)
+            {
+                carPoolInfos.RemoveAll(c => !c.EndLocation.Equals(param.EndLocation));
+            }
+
+            if (param.WeekDays != null)
+            {
+                carPoolInfos.RemoveAll(c => !param.WeekDays.Except(c.WeekDays).Any());
+            }
+
+            if (param.Time != null)
+            {
+                TimeSpan wantedArrivalTime = TimeSpan.Parse(param.Time);
+                carPoolInfos.RemoveAll(c => wantedArrivalTime.CompareTo(TimeSpan.Parse(c.Time)) >= 0);
+            }
+
             return Ok(carPoolInfos);
         }
     }
