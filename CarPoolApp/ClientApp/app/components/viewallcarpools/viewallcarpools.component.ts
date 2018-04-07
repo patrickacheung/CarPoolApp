@@ -45,11 +45,6 @@ export class ViewAllCarpoolsComponent implements OnInit {
         this.searchModel.day = this.day;
         this.searchModel.location = this.location;
 
-        console.log(this.searchModel.driver);
-        console.log(this.searchModel.day);
-        console.log(this.searchModel.arrivalTime);
-        console.log(this.searchModel.location);
-
         this.carpools = this.originalCarpools;
         this.filter(this.searchModel);
 
