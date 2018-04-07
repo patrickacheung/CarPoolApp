@@ -25,9 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\Search.ts" />
     <None Remove="ClientApp\app\components\viewallcarpools\file.ts" />
     <None Remove="ClientApp\app\components\viewallcarpools\filterComponent.ts" />
     <None Remove="ClientApp\app\components\viewallcarpools\viewallcarpools - Copy.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\Search.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
