@@ -16,6 +16,7 @@ import { ViewAllCarpoolsComponent } from './components/viewallcarpools/viewallca
 import { CreateCarpoolComponent } from './components/createcarpool/createcarpool.component';
 
 import { CarpoolService } from './components/carpool.service';
+import { LoginService } from './components/login.service';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { CarpoolService } from './components/carpool.service';
         ])
     ],
     providers: [
-        CarpoolService
+        CarpoolService,
+        LoginService
     ]
 })
 export class AppModuleShared {
