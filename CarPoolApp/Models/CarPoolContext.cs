@@ -6,6 +6,7 @@ namespace CarPoolApp.Models
     {
         public DbSet<CarPool> CarPools { get; set; }
         public DbSet<WeekDay> WeekDays { get; set; }
+        public DbSet<Occurance> Occurances { get; set; }
 
         public CarPoolContext(DbContextOptions<CarPoolContext> options) : base(options)
         {

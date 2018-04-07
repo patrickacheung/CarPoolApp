@@ -17,6 +17,7 @@ namespace CarPoolApp.Controllers
     {
         public class CarPoolInfo
         {
+            public string Driver { get; set; }
             public int Seats { get; set; }
             public string CarDescription { get; set; }
             public string StartLocation { get; set; }
@@ -36,13 +37,19 @@ namespace CarPoolApp.Controllers
         }
 
         [HttpPost("[action]")]
-        [AllowAnonymous]
         public IActionResult Add([FromBody] CarPoolInfo carPoolInfo)
         {
-            //string username = Authentication.getUserName(HttpContext);
-            Person person = Authentication.GetPerson(PersonContext, "DanielS");
+            string username = Authentication.getUserName(HttpContext);
+            Person person = Authentication.GetPerson(PersonContext, username);
             CarPoolManager.AddNewCarPool(carPoolInfo, person, CarPoolContext);
             return Ok();
+        }
+
+        [HttpGet("[action]")]
+        public IActionResult Get()
+        {
+            List<CarPoolInfo> carPoolInfos = CarPoolManager.getCarPoolInfos(CarPoolContext, PersonContext);
+            return Ok(carPoolInfos);
         }
     }
 }
