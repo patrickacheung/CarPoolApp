@@ -1,5 +1,5 @@
 ﻿<h1>Login</h1>
-<div class="alert alert-danger" role="alert" *ngIf="showErrorMsg && login.submitted">
+<div class="alert alert-danger" role="alert" *ngIf="!isLoginCorrect && login.submitted">
     Wrong credentials!
 </div>
 <form (ngSubmit)="onSubmit()" #login="ngForm">

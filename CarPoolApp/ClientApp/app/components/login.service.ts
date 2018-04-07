@@ -14,9 +14,14 @@ export class LoginService {
 
     private loginUrl = 'http://localhost:5000/api/Authentication/Authenticate';
     private isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
+    private isLoginCorrectSubject = new BehaviorSubject<boolean>(true);
 
     isLoggedIn(): Observable<boolean> {
         return this.isLoginSubject.asObservable();
+    }
+
+    isLoginCorrect(): Observable<boolean> {
+        return this.isLoginCorrectSubject.asObservable();
     }
 
     login(username: string, password: string): void {
@@ -27,12 +32,14 @@ export class LoginService {
                 this.isLoginSubject.next(true);
                 this.router.navigate(['home']);
             }, () => {
+                this.isLoginCorrectSubject.next(false);
                 this.isLoginSubject.next(false);
             });
     }
 
     logout(): void {
         localStorage.removeItem('token');
+        this.isLoginCorrectSubject.next(true);
         this.isLoginSubject.next(false);
     }
 

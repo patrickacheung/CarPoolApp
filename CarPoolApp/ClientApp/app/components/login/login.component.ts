@@ -9,8 +9,8 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
     loginModel: Login;
-    showErrorMsg: boolean;
     isLoggedIn: boolean;
+    isLoginCorrect: boolean;
 
     constructor(private loginService: LoginService) {
         this.loginModel = new Login();
@@ -18,8 +18,11 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginService.isLoggedIn().subscribe((isLoggedIn: boolean) => {
-            this.showErrorMsg = !isLoggedIn;
             this.isLoggedIn = isLoggedIn;
+        });
+
+        this.loginService.isLoginCorrect().subscribe((isLoginCorrect: boolean) => {
+            this.isLoginCorrect = isLoginCorrect;
         });
     }
 
