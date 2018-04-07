@@ -1,23 +1,31 @@
 ﻿<h1>Create an Account</h1>
-<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+<div class="alert alert-success text-center notif-top" role="alert" *ngIf="isRegisterSuccess">Registration Success</div>
+<div class="alert alert-danger text-center notif-top" role="alert" *ngIf="!isRegisterSuccess && form.submitted">
+    Registration Failed!
+</div>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" [(ngModel)]="model.UserName" id="username" name="username" required #username="ngModel">
-        <div [hidden]="username.valid || username.pristine" class="alert alert-danger">username is required</div>
+        <input type="text" class="form-control" id="username" formControlName="username">
     </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="model.EmailAddress" id="email" name="email" required #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">email is required</div>
-    </div>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched">Username is required</div>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['username'].hasError('minlength') && form.controls['username'].touched">Username must be at least 3 characters long</div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" [(ngModel)]="model.Password" id="password" name="password" required #password="ngModel">
-        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">password is required</div>
+        <input type="password" class="form-control" id="password" formControlName="password">
     </div>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched">Password is required</div>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['password'].hasError('minlength') && form.controls['password'].touched">Password must be at least 5 characters long</div>
     <div class="form-group">
-        <label for="phoneNumber">Phone Number</label>
-        <input type="tel" class="form-control" [(ngModel)]="model.PhoneNumber" id="phoneNumber" name="phoneNumber">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
     </div>
-    <button type="submit" class="btn btn-success" [disabled]="registerForm.form.invalid">Sign Up</button>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched">Email is required</div>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['email'].hasError('isSFUEmail') && form.controls['email'].touched">A SFU email is required</div>
+    <div class="form-group">
+        <label for="phonenumber">Phone Number</label>
+        <input type="tel" class="form-control" formControlName="phoneNumber">
+    </div>
+    <div class="alert alert-danger notif-form" *ngIf="form.controls['phoneNumber'].hasError('isPhoneNumber') && form.controls['phoneNumber'].touched">Valid phone number is required</div>
+    <button type="submit" class="btn btn-success" [disabled]="form.invalid">Sign Up</button>
 </form>

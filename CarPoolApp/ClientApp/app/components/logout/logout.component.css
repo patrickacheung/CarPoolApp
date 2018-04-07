@@ -1,0 +1,10 @@
+.notif-top {
+    animation: fadein 1.5s;
+    font-weight: bold;
+    margin-top: 5em;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
