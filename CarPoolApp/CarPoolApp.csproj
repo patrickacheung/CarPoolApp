@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,11 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\login\login.component.ts" />
+    <Compile Remove="ClientApp\app\components\viewallcarpools\Class.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\app\components\viewallcarpools\file.ts" />
+    <None Remove="ClientApp\app\components\viewallcarpools\filterComponent.ts" />
+    <None Remove="ClientApp\app\components\viewallcarpools\viewallcarpools - Copy.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
