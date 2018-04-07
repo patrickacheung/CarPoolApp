@@ -4,7 +4,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search for driver"
-                       [(ngModel)]="search.driver" name="driver" #driver="ngModel">
+                       [(ngModel)]="searchModel.driver" name="driver" #driver="ngModel">
             </div>
         </div>
         <div class="col-sm-2">
@@ -28,7 +28,7 @@
             <div class="input-group input-group-md">
                 <span class="input-group-addon" id="sizing-addon1">Arrival Time</span>
                 <input type="time" class="form-control" aria-describedby="sizing-addon1"
-                       [(ngModel)]="search.date" name="date" #date="ngModel">
+                       [(ngModel)]="searchModel.arrivalTime" name="arrivalTime" #arrivalTime="ngModel">
             </div>
         </div>
         <div class="col-sm-2">

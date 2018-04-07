@@ -1,5 +1,6 @@
 ﻿export class Search {
     driver: string;
-    datetime: string;
+    day: string;
+    arrivalTime: string;
     location: string;
 }

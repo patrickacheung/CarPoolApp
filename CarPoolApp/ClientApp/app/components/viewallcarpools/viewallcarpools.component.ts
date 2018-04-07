@@ -14,11 +14,11 @@ export class ViewAllCarpoolsComponent implements OnInit {
 
     carpools: Carpool[];
     location: string;
-    search: Search;
+    searchModel: Search;
     day: string;
 
     constructor(private carpoolService: CarpoolService) {
-        this.search = new Search();
+        this.searchModel = new Search();
     }
 
     ngOnInit() {
@@ -31,27 +31,19 @@ export class ViewAllCarpoolsComponent implements OnInit {
     }
 
     onSubmit(): void {
+
+        this.searchModel.day = this.day;
+        this.searchModel.location = this.location;
         
-        console.log(this.day);
-        console.log(this.location);
+        console.log(this.searchModel.driver);
+        console.log(this.searchModel.arrivalTime);
     }
 
     public setLocation(locationInput: string): void{
         this.location = locationInput;
-        console.log("Inside set Location");
     }
 
     public setDay(dayInput: string): void {
         this.day = dayInput;
-        console.log("Inside set Day");
     }
-
-
-    //search(): void {
-     //   let term = this.searchTerm;
-     //   this.items = this.itemsCopy.filter(function (tag) {
-     //       return tag.name.indexOf(term) >= 0;
-     //   });
-    //}
-
 }
