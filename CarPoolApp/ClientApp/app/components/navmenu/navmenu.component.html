@@ -40,6 +40,12 @@
                         <span class='glyphicon glyphicon-log-in'></span> Login
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']" data-toggle="collapse" data-target=".navbar-collapse.in"
+                    *ngIf="isLoggedIn">
+                    <a [routerLink]="['/logout']">
+                        <span class='glyphicon glyphicon-log-out'></span> Logout
+                    </a>
+                </li>
                 <!--
     <li [routerLinkActive]="['link-active']">
         <a [routerLink]="['/fetch-data']">
