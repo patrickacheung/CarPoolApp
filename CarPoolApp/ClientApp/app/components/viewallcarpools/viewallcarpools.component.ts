@@ -9,6 +9,10 @@ import { CarpoolService } from '../carpool.service';
     styleUrls: ['../carpools/carpools.component.css']
 })
 
+
+
+
+
 export class ViewAllCarpoolsComponent implements OnInit {
 
     carpools: Carpool[];
@@ -23,4 +27,12 @@ export class ViewAllCarpoolsComponent implements OnInit {
         this.carpoolService.getCarpools()
             .subscribe(carpools => this.carpools = carpools);
     }
+
+    //search(): void {
+     //   let term = this.searchTerm;
+     //   this.items = this.itemsCopy.filter(function (tag) {
+     //       return tag.name.indexOf(term) >= 0;
+     //   });
+    //}
+
 }
