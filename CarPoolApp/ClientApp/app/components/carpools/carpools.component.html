@@ -1,7 +1,7 @@
 <h2>Latest Rides</h2>
 <div class="alert alert-success text-center popup-success" *ngIf="emailSent && emailSuccess">Email sent</div>
 <div class="alert alert-danger text-center popup-danger" *ngIf="emailSent && !emailSuccess">Email not sent</div>
-<h3 class="alert alert-danger text-center" *ngIf="carpoolsLoaded && !carpools.length | async">No Rides Available</h3>
+<h3 class="alert alert-danger text-center" *ngIf="carpoolsLoaded && !carpools.length">No Rides Available</h3>
 <div class="carpools">
     <div class="bs-callout bs-callout-primary container-fluid"
          *ngFor="let carpool of carpools.reverse() | slice:0:5">

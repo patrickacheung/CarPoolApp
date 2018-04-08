@@ -12,22 +12,26 @@ export class RegisterComponent implements OnInit {
     model: Account;
     form: FormGroup;
     isRegisterSuccess: boolean;
+    isRegisterSent: boolean;
 
     constructor(private registerService: RegisterService, private fb: FormBuilder) {
         this.model = new Account("", "", "");
-        this.isRegisterSuccess = false;
     }
 
     ngOnInit() {
+        this.registerService.isRegisterSuccess().subscribe((isRegisterSuccess: boolean) => {
+            this.isRegisterSuccess = isRegisterSuccess;
+        });
+
+        this.registerService.isRegisterSent().subscribe((isRegisterSent: boolean) => {
+            this.isRegisterSent = isRegisterSent;
+        })
+
         this.form = this.fb.group({
             username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
             email: ['', Validators.compose([Validators.required, isSFUEmail])],
             phoneNumber: ['', isPhoneNumber]
-        });
-
-        this.registerService.isRegisterSuccess().subscribe((isRegisterSuccess: boolean) => {
-            this.isRegisterSuccess = isRegisterSuccess;
         });
     }
 
