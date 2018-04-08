@@ -11,7 +11,7 @@ import { LoginService } from './login.service';
 export class RegisterService {
     constructor(private http: Http, private router: Router, private loginService: LoginService) { }
 
-    private registerUrl = 'http://localhost:5000/api/Authentication/Register';
+    private registerUrl = 'http://localhost:53381/api/Authentication/Register';
     private isRegisterSuccessSubject = new BehaviorSubject<boolean>(false);
     private isRegisterSentSubject = new BehaviorSubject<boolean>(false);
 

@@ -72,13 +72,13 @@ namespace CarPoolApp.Controllers
 
             if (param.WeekDays != null)
             {
-                carPoolInfos.RemoveAll(c => !param.WeekDays.Except(c.WeekDays).Any());
+                carPoolInfos.RemoveAll(c => param.WeekDays.Except(c.WeekDays).Any());
             }
 
             if (param.Time != null)
             {
                 TimeSpan wantedArrivalTime = TimeSpan.Parse(param.Time);
-                carPoolInfos.RemoveAll(c => wantedArrivalTime.CompareTo(TimeSpan.Parse(c.Time)) >= 0);
+                carPoolInfos.RemoveAll(c => wantedArrivalTime.CompareTo(TimeSpan.Parse(c.Time)) > 0);
             }
 
             return Ok(carPoolInfos);

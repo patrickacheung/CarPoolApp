@@ -12,7 +12,7 @@ export class LoginService {
 
     constructor(private http: Http, private router: Router) { }
 
-    private loginUrl = 'http://localhost:5000/api/Authentication/Authenticate';
+    private loginUrl = 'http://localhost:53381/api/Authentication/Authenticate';
     private isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
     private isLoginCorrectSubject = new BehaviorSubject<boolean>(true);
     private showLoginSubject = new BehaviorSubject<boolean>(false);
