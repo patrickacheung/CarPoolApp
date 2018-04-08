@@ -1,3 +1,9 @@
 .bottom-padding {
     padding-bottom: 1em;
 }
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
