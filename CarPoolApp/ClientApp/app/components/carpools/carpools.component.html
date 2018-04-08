@@ -1,7 +1,7 @@
 <h2>Latest Rides</h2>
 <div class="carpools">
-    <div class="bs-callout bs-callout-default container-fluid"
-         *ngFor="let carpool of carpools | slice:0:5">
+    <div class="bs-callout bs-callout-primary container-fluid"
+         *ngFor="let carpool of carpools.reverse() | slice:0:5">
         <div class="profile col-sm-3">
             <div class="row carpool-heading">Driver</div>
             <div class="row">
@@ -19,27 +19,42 @@
                      class="img-thumbnail img" alt="vehicle pic">
             </div>
             <div class="row carpool-comp-detail">
-                {{ carpool.vehicle }}
+                {{ carpool.carDescription }}
             </div>
         </div>
         <div class="details col-sm-6">
             <div class="row carpool-heading">Carpool Details</div>
             <div class="row carpool-details">
                 <div>
-                    {{ carpool.campus }} Campus
+                    <span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;{{ carpool.startLocation }}
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    {{ carpool.endLocation }} Campus
                 </div>
                 <div>
-                    Leaving on {{ carpool.datetime }}
+                    <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ carpool.weekDays.join(", ") }}
                 </div>
-                <div [ngPlural]="carpool.seatsRemaining">
+                <div>
+                    <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;{{ carpool.time }}
+                </div>
+                <br>
+                <div><b>Additional Details</b></div>
+                <div *ngIf="carpool.additionalDetails">
+                    {{ carpool.additionalDetails }}
+                </div>
+                <div *ngIf="!carpool.additionalDetails">
+                    None
+                </div>
+                <br>
+                <div><b>Seats</b></div>
+                <div [ngPlural]="carpool.seats">
                     <ng-template ngPluralCase="=0">No seats</ng-template>
-                    <ng-template ngPluralCase="=1">{{ carpool.seatsRemaining }} seat</ng-template>
-                    <ng-template ngPluralCase="other">{{ carpool.seatsRemaining }} seats</ng-template>
+                    <ng-template ngPluralCase="=1">{{ carpool.seats }} seat</ng-template>
+                    <ng-template ngPluralCase="other">{{ carpool.seats }} seats</ng-template>
                     remaining
                 </div>
             </div>
             <div class="row carpool-comp-detail">
-                <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seatsRemaining == 0}">
+                <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seats == 0}">
                     Message Driver</button>
             </div>
         </div>
