@@ -1,4 +1,6 @@
 <h2>Latest Rides</h2>
+<div class="alert alert-success text-center popup-success" *ngIf="emailSent && emailSuccess">Email sent</div>
+<div class="alert alert-danger text-center popup-danger" *ngIf="emailSent && !emailSuccess">Email not sent</div>
 <h3 class="alert alert-danger text-center" *ngIf="carpoolsLoaded && !carpools.length | async">No Rides Available</h3>
 <div class="carpools">
     <div class="bs-callout bs-callout-primary container-fluid"
@@ -16,7 +18,7 @@
         <div class="vehicle col-sm-3">
             <div class="row carpool-heading">Vehicle</div>
             <div class="row">
-                <img src="https://icdn-5.motor1.com/images/mgl/A2r49/s1/wcf-lada-classic-lada-21071.jpg"
+                <img src="http://www.evanpaulmotorcars.com/front_path/images/cars/placeholder-car.png"
                      class="img-thumbnail img" alt="vehicle pic">
             </div>
             <div class="row carpool-comp-detail">
@@ -56,7 +58,7 @@
             </div>
             <div class="row carpool-comp-detail">
                 <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seats == 0}"
-                    (click)="sendEmail()" *ngIf="isLoggedIn">
+                    (click)="sendEmail(carpool)" *ngIf="isLoggedIn">
                     Message Driver</button>
                 <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seats == 0}"
                     *ngIf="!isLoggedIn" data-toggle="modal" data-target="#emailModal">

@@ -13,6 +13,8 @@ export class CarpoolsComponent implements OnInit {
 	carpools: Carpool[];
 	carpoolsLoaded: Promise<boolean>; // Adapted from: https://stackoverflow.com/a/44904470
 	isLoggedIn: boolean;
+	emailSent: boolean;
+	emailSuccess: boolean;
 
 	constructor(private carpoolService: CarpoolService, private loginService: LoginService) {
 		this.carpools = [];
@@ -23,7 +25,15 @@ export class CarpoolsComponent implements OnInit {
 
 		this.loginService.isLoggedIn().subscribe((isLoggedIn: boolean) => {
             this.isLoggedIn = isLoggedIn;
-        });
+		});
+		
+		this.carpoolService.wasEmailSent().subscribe((emailSent: boolean) => {
+			this.emailSent = emailSent;
+		});
+
+		this.carpoolService.wasEmailSuccess().subscribe((emailSuccess: boolean) => {
+			this.emailSuccess = emailSuccess;
+		});
 	}
 
 	getCarpools(): void {
@@ -34,7 +44,7 @@ export class CarpoolsComponent implements OnInit {
 			});
 	}
 
-	sendEmail(): void {
-		console.log('lol');
+	sendEmail(carpool: Carpool): void {
+		this.carpoolService.sendEmail(carpool);
 	}
 }
