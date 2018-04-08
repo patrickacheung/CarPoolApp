@@ -7,101 +7,170 @@
                        [(ngModel)]="searchModel.driver" name="driver" #driver="ngModel">
             </div>
         </div>
-        <div class="col-sm-2">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="campusMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Select Day
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="campusMenu">
-                    <li (click)="setDay('')"><a>Any</a></li>
-                    <li (click)="setDay('Monday')"><a>Monday</a></li>
-                    <li (click)="setDay('Tuesday')"><a>Tuesday</a></li>
-                    <li (click)="setDay('Wednesday')"><a>Wednesday</a></li>
-                    <li (click)="setDay('Thursday')"><a>Thursday</a></li>
-                    <li (click)="setDay('Friday')"><a>Friday</a></li>
-                    <li (click)="setDay('Saturday')"><a>Saturday</a></li>
-                    <li (click)="setDay('Sunday')"><a>Sunday</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="col-sm-3">
             <div class="input-group input-group-md">
                 <span class="input-group-addon" id="sizing-addon1">Arrival Time</span>
                 <input type="time" class="form-control" aria-describedby="sizing-addon1"
-                       [(ngModel)]="searchModel.arrivalTime" name="arrivalTime" #arrivalTime="ngModel">
+                       [(ngModel)]="searchModel.arrivalTime" name="arrivalTime" #arrivalTime="ngModel" placeholder="HH:MM">
             </div>
         </div>
         <div class="col-sm-2">
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="campusMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Select Campus
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="campusMenu">
-                    <li (click)="setLocation('')"><a>Any</a></li>
-                    <li (click)="setLocation('SFU Burnaby')"><a>SFU Burnaby</a></li>
-                    <li (click)="setLocation('SFU Surrey')"><a>SFU Surrey</a></li>
-                    <li (click)="setLocation('SFU Vancouver')"><a>SFU Vancouver</a></li>
-                </ul>
+            <div class="form-group">
+                <select class="form-control" name="endLocation" id="destination" formControlName="endLocation" (change)="onChange($event.target.value)">
+                    <option disabled value=""> -- Select destination campus -- </option>
+                    <option value="SFU">Any</option>
+                    <option value="SFU Burnaby">SFU Burnaby</option>
+                    <option value="SFU Surrey">SFU Surrey</option>
+                    <option value="SFU Vancouver">SFU Vancouver</option>
+                </select>
             </div>
+        </div>
+
+
+
+        <!--<input [(ngModel)]="searchTerm" (ngModelChange)="search()" />
+    <div *ngFor="let carpool of carpools">{{item.driver}}</div>-->
+
+        <br />
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label class="col-sm-2"for="days">Days</label>
+                <div class="form-check form-check-inline flex-container">
+                    <div class="child-item  col-sm-2">
+                        <input class="form-check-input" type="checkbox" id="monday" value="Monday" [checked]="mon" (change)="mon = !mon"
+                               [(ngModel)]="searchModel.monday" name="monday" #monday="ngModel">
+                        <label class="form-check-label" for="monday">Monday</label>
+                    </div>
+                    <div class="child-item col-sm-2">
+                        <input class="form-check-input" type="checkbox" id="tuesday" value="Tuesday" [checked]="tues" (change)="tues = !tues"
+                               [(ngModel)]="searchModel.tuesday" name="tuesday" #tuesday="ngModel">
+                        <label class="form-check-label" for="tuesday">Tuesday</label>
+                    </div>
+                    <div class="child-item col-sm-2">
+                        <input class="form-check-input" type="checkbox" id="wednesday" value="Wednesday" [checked]="wed" (change)="wed = !wed"
+                               [(ngModel)]="searchModel.wednesday" name="wednesday" #wednesday="ngModel">
+                        <label class="form-check-label" for="wednesday">Wednesday</label>
+                    </div>
+                    <div class="child-item col-sm-2">
+                        <input class="form-check-input" type="checkbox" id="thursday" value="Thursday" [checked]="thurs" (change)="thurs = !thurs"
+                               [(ngModel)]="searchModel.thursday" name="thursday" #thursday="ngModel">
+                        <label class="form-check-label" for="thursday">Thursday</label>
+                    </div>
+                    <div class="child-item  col-sm-2">
+                        <input class="form-check-input" type="checkbox" id="friday" value="Friday" [checked]="fri" (change)="fri = !fri"
+                               [(ngModel)]="searchModel.friday" name="friday" #friday="ngModel">
+                        <label class="form-check-label" for="friday">Friday</label>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group">
+            <select class="form-control" id="dayofweek" formControlName="dayofweek">
+                <option disabled value=""> -- Select destination campus -- </option>
+                <option (click)="setLocation('')">Any</option>
+                <option (click)="setLocation('Monday')">Monday</option>
+                <option (click)="setLocation('Tuesday')">Tuesday</option>
+                <option (click)="setLocation('Wednesday')">Wednesday</option>
+                <option (click)="setLocation('Thursday')">Thursday</option>
+                <option (click)="setLocation('Friday')">Friday</option>
+                <option (click)="setLocation('Saturday')">Saturday</option>
+                <option (click)="setLocation('Sunday')">Sunday</option>
+            </select>
+        </div>-->
+            <!--<div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="campusMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Select Day
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="campusMenu">
+                <li (click)="setDay('')"><a>Any</a></li>
+                <li (click)="setDay('Monday')"><a>Monday</a></li>
+                <li (click)="setDay('Tuesday')"><a>Tuesday</a></li>
+                <li (click)="setDay('Wednesday')"><a>Wednesday</a></li>
+                <li (click)="setDay('Thursday')"><a>Thursday</a></li>
+                <li (click)="setDay('Friday')"><a>Friday</a></li>
+                <li (click)="setDay('Saturday')"><a>Saturday</a></li>
+                <li (click)="setDay('Sunday')"><a>Sunday</a></li>
+            </ul>
+        </div>-->
         </div>
         <div class="col-sm-1">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
 
-
-        <!--<input [(ngModel)]="searchTerm" (ngModelChange)="search()" />
-        <div *ngFor="let carpool of carpools">{{item.driver}}</div>-->
-
         <br />
 
 
         <div class="carpools">
-            <div class="bs-callout bs-callout-default container-fluid"
-                 *ngFor="let carpool of carpools | slice:0:5">
+            <div class="bs-callout bs-callout-primary container-fluid"
+                 *ngFor="let carpool of carpools.reverse() | slice:0:5">
                 <div class="profile col-sm-3">
-                    <div class="row carpool-heading">Driver</div>
+                    <div class="row carpool-heading heading-first">Driver</div>
                     <div class="row">
                         <img src="https://t3.ftcdn.net/jpg/00/64/67/80/160_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg"
                              class="img-thumbnail img" alt="profile pic">
                     </div>
                     <div class="row carpool-comp-detail">
                         {{ carpool.driver }}
-
-
                     </div>
                 </div>
                 <div class="vehicle col-sm-3">
                     <div class="row carpool-heading">Vehicle</div>
                     <div class="row">
-                        <img src="https://icdn-5.motor1.com/images/mgl/A2r49/s1/wcf-lada-classic-lada-21071.jpg"
+                        <img src="http://www.evanpaulmotorcars.com/front_path/images/cars/placeholder-car.png"
                              class="img-thumbnail img" alt="vehicle pic">
                     </div>
                     <div class="row carpool-comp-detail">
-                        {{ carpool.vehicle }}
+                        {{ carpool.carDescription }}
                     </div>
                 </div>
                 <div class="details col-sm-6">
                     <div class="row carpool-heading">Carpool Details</div>
                     <div class="row carpool-details">
                         <div>
-                            {{ carpool.campus }} Campus
+                            <span class="glyphicon glyphicon-road"></span>&nbsp;&nbsp;{{ carpool.startLocation }}
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            {{ carpool.endLocation }} Campus
                         </div>
                         <div>
-                            Leaving on {{ carpool.datetime }}
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ carpool.weekDays.join(", ") }}
                         </div>
-                        <div [ngPlural]="carpool.seatsRemaining">
+                        <div>
+                            <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;{{ carpool.time }}
+                        </div>
+                        <br>
+                        <div><b>Additional Details</b></div>
+                        <div *ngIf="carpool.additionalDetails">
+                            {{ carpool.additionalDetails }}
+                        </div>
+                        <div *ngIf="!carpool.additionalDetails">
+                            None
+                        </div>
+                        <br>
+                        <div><b>Seats</b></div>
+                        <div [ngPlural]="carpool.seats">
                             <ng-template ngPluralCase="=0">No seats</ng-template>
-                            <ng-template ngPluralCase="=1">{{ carpool.seatsRemaining }} seat</ng-template>
-                            <ng-template ngPluralCase="other">{{ carpool.seatsRemaining }} seats</ng-template>
+                            <ng-template ngPluralCase="=1">{{ carpool.seats }} seat</ng-template>
+                            <ng-template ngPluralCase="other">{{ carpool.seats }} seats</ng-template>
                             remaining
                         </div>
                     </div>
                     <div class="row carpool-comp-detail">
-                        <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seatsRemaining == 0}">
+                        <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seats == 0}"
+                                (click)="sendEmail(carpool)" *ngIf="isLoggedIn">
                             Message Driver
                         </button>
+                        <button class="btn btn-primary pull-right" [ngClass]="{'disabled': carpool.seats == 0}"
+                                *ngIf="!isLoggedIn" data-toggle="modal" data-target="#emailModal">
+                            Message Driver
+                        </button>
+                    </div>
+                    <!-- Bootstrap modal -->
+                    <div class="modal fade centered-modal" id="emailModal">
+                        <div class="modal-dialog alert alert-warning">
+                            <div class="text-center">
+                                Please <b>register</b> or <b>login</b> to email drivers!
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Carpool } from '../carpool';
 import { CarpoolService } from '../carpool.service';
 import { Search } from '../Search';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'viewallcarpools',
@@ -11,12 +12,11 @@ import { Search } from '../Search';
 
 
 export class ViewAllCarpoolsComponent implements OnInit {
-
     originalCarpools: Carpool[];
     carpools: Carpool[];
     location: string;
     searchModel: Search;
-    day: string;
+    day: boolean[] = [];
 
     constructor(private carpoolService: CarpoolService) {
         this.searchModel = new Search();
@@ -25,7 +25,7 @@ export class ViewAllCarpoolsComponent implements OnInit {
     ngOnInit() {
         this.getCarpools();
     }
-
+    
     getCarpools(): void {
         this.carpoolService.getCarpools()
             .subscribe(carpools => this.carpools = carpools);
@@ -33,7 +33,7 @@ export class ViewAllCarpoolsComponent implements OnInit {
     }
 
     filter(model: Search): void {
-        this.carpoolService.searchCarpools(model.driver, model.day, model.arrivalTime, model.location)
+        this.carpoolService.searchCarpools(model.driver, this.day, model.arrivalTime, model.location)
             .subscribe(carpools => this.carpools = carpools);
 
         //this.carpools = this.carpools.filter(
@@ -45,8 +45,15 @@ export class ViewAllCarpoolsComponent implements OnInit {
 
     onSubmit(): void {
 
-        this.searchModel.day = this.day;
         this.searchModel.location = this.location;
+
+        this.day = [];
+
+        this.day.push(this.searchModel.monday);
+        this.day.push(this.searchModel.tuesday);
+        this.day.push(this.searchModel.wednesday);
+        this.day.push(this.searchModel.thursday);
+        this.day.push(this.searchModel.friday);
 
         this.carpools = this.originalCarpools;
         this.filter(this.searchModel);
@@ -54,11 +61,7 @@ export class ViewAllCarpoolsComponent implements OnInit {
 
     }
 
-    public setLocation(locationInput: string): void{
-        this.location = locationInput;
-    }
-
-    public setDay(dayInput: string): void {
-        this.day = dayInput;
+    onChange(deviceValue: string) {
+        this.location = deviceValue;
     }
 }

@@ -20,7 +20,7 @@ export class CarpoolService {
 	private getCarPoolsUrl = 'http://localhost:53381/api/CarPool/Get';
     private postCarPoolsUrl = 'http://localhost:53381/api/CarPool/Add';
     private searchCarPoolsUrl = 'http://localhost:53381/api/CarPool/Get?param={'
-	private emailUrl = 'http://localhost:5000/api/CarPool/Email';
+	private emailUrl = 'http://localhost:53381/api/CarPool/Email';
 	private emailSentSubject = new BehaviorSubject<boolean>(false);
 	private emailSuccessSubject = new BehaviorSubject<boolean>(false);
 	private createCarpoolSentSubject = new BehaviorSubject<boolean>(false);
@@ -33,13 +33,13 @@ export class CarpoolService {
 			});
 	}
 
-    searchCarpools(driver: string, day: string, time: string, location: string): Observable<Carpool[]> {
+    searchCarpools(driver: string, day: boolean[], time: string, location: string): Observable<Carpool[]> {
         var params = false;
         var driverAddition = '';
         var dayAddition = '';
         var timeAddition = '';
         var locationAddition = '';
-        var ending = '';
+        var ending = '}';
 
         if (!(driver === '' || driver == null)) {
             params = true;
@@ -55,7 +55,7 @@ export class CarpoolService {
             params = true;
             ending = '}';
         }
-        if (!(location === '')) {
+        if (!(location === "" || location == null || location === "SFU")) {
             if (params) {
                 locationAddition = ',\"EndLocation":\"' + location + '\"';
             } else {
@@ -64,17 +64,58 @@ export class CarpoolService {
             params = true;
             ending = '}';
         }
-        if (!(day === '')) {
+        if ((day[0] == true) || (day[1] == true) || (day[2] == true) || (day[3] == true) || (day[4] == true)) {
+            var daysString = '';
+            var firstDay = false;
+            if (day[0]) {
+                daysString = daysString + '"Monday"';
+                firstDay = true;
+            }
+
+            if (day[1]) {
+                if (firstDay) {
+                    daysString = daysString + ',"Tuesday"';
+                } else {
+                    daysString = daysString + '"Tuesday"';
+                }
+                firstDay = true;
+            }
+            if (day[2]) {
+                if (firstDay) {
+                    daysString = daysString + ',"Wednesday"';
+                } else {
+                    daysString = daysString + '"Wednesday"';
+                }
+                firstDay = true;
+            }
+            if (day[3]) {
+                if (firstDay) {
+                    daysString = daysString + ',"Thursday"';
+                } else {
+                    daysString = daysString + '"Thursday"';
+                }
+                firstDay = true;
+            }
+            if (day[4]) {
+                if (firstDay) {
+                    daysString = daysString + ',"Friday"';
+                } else {
+                    daysString = daysString + '"Friday"';
+                }
+                firstDay = true;
+            }
+            
+
             if (params) {
-                dayAddition = ',\"WeekDays":[\"' + day + '\"]';
+                dayAddition = ',"WeekDays":[' + daysString + ']';
             } else {
-                dayAddition = '\"WeekDays":[\"' + day + '\"]';
+                dayAddition = '"WeekDays":[' + daysString + ']';
             }
             params = true;
             ending = '}';
         }
 
-        var callUrl = this.getCarPoolsUrl + driverAddition + locationAddition + timeAddition + dayAddition;
+        var callUrl = this.searchCarPoolsUrl + driverAddition + locationAddition + timeAddition + dayAddition + ending;
 
         return this.http.get(callUrl)
             .map((res: Response) => {
