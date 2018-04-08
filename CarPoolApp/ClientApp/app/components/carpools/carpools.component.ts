@@ -10,8 +10,9 @@ import { CarpoolService } from '../carpool.service';
 })
 export class CarpoolsComponent implements OnInit {
 	carpools: Carpool[];
+	carpoolsLoaded: Promise<boolean>; // Adapted from: https://stackoverflow.com/a/44904470
 
-	constructor(private carpoolService: CarpoolService) { 
+	constructor(private carpoolService: CarpoolService) {
 		this.carpools = [];
 	}
 
@@ -21,6 +22,9 @@ export class CarpoolsComponent implements OnInit {
 
 	getCarpools(): void {
 		this.carpoolService.getCarpools()
-			.subscribe(carpools => this.carpools = carpools);
+			.subscribe(carpools => {
+				this.carpoolsLoaded = Promise.resolve(true);
+				this.carpools = carpools;
+			});
 	}
 }

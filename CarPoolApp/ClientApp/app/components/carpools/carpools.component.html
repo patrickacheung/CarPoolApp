@@ -1,5 +1,5 @@
 <h2>Latest Rides</h2>
-<h3 class="alert alert-danger text-center" *ngIf="!carpools.length">No Rides Available</h3>
+<h3 class="alert alert-danger text-center" *ngIf="carpoolsLoaded && !carpools.length | async">No Rides Available</h3>
 <div class="carpools">
     <div class="bs-callout bs-callout-primary container-fluid"
          *ngFor="let carpool of carpools.reverse() | slice:0:5">
