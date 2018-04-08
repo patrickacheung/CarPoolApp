@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Carpool } from '../carpool';
 import { CarpoolService } from '../carpool.service';
+import { LoginService } from '../login.service';
 
 @Component({
 	selector: 'carpools',
@@ -11,13 +12,18 @@ import { CarpoolService } from '../carpool.service';
 export class CarpoolsComponent implements OnInit {
 	carpools: Carpool[];
 	carpoolsLoaded: Promise<boolean>; // Adapted from: https://stackoverflow.com/a/44904470
+	isLoggedIn: boolean;
 
-	constructor(private carpoolService: CarpoolService) {
+	constructor(private carpoolService: CarpoolService, private loginService: LoginService) {
 		this.carpools = [];
 	}
 
 	ngOnInit() {
 		this.getCarpools();
+
+		this.loginService.isLoggedIn().subscribe((isLoggedIn: boolean) => {
+            this.isLoggedIn = isLoggedIn;
+        });
 	}
 
 	getCarpools(): void {
@@ -26,5 +32,9 @@ export class CarpoolsComponent implements OnInit {
 				this.carpoolsLoaded = Promise.resolve(true);
 				this.carpools = carpools;
 			});
+	}
+
+	sendEmail(): void {
+		console.log('lol');
 	}
 }

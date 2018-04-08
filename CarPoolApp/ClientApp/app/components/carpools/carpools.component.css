@@ -83,3 +83,11 @@
         display: block;
     }
 }
+
+.centered-modal.in {
+    display: flex !important;
+}
+
+.centered-modal .modal-dialog {
+    margin: auto;
+}
