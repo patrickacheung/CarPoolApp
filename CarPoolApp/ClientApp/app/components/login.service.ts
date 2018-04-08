@@ -43,7 +43,7 @@ export class LoginService {
                     this.isLoginSubject.next(true);
                     this.showLoginSubject.next(false);
                     this.router.navigate(['home']);
-                }, 1500);
+                }, 2000);
             }, () => {
                 this.isLoginCorrectSubject.next(false);
                 this.isLoginSubject.next(false);
@@ -57,7 +57,7 @@ export class LoginService {
         setTimeout(() => {
             this.isLoginSubject.next(false);
             this.router.navigate(['home']);
-        }, 1500);
+        }, 2000);
     }
 
     getToken(): string | null {

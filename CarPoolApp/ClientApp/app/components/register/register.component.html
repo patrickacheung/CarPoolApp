@@ -1,6 +1,6 @@
 ﻿<h1>Create an Account</h1>
-<div class="alert alert-success text-center notif-top" role="alert" *ngIf="isRegisterSuccess">Registration Success</div>
-<div class="alert alert-danger text-center notif-top" role="alert" *ngIf="!isRegisterSuccess && form.submitted">
+<div class="alert alert-success text-center notif-top" role="alert" *ngIf="isRegisterSent && isRegisterSuccess">Registration Success</div>
+<div class="alert alert-danger text-center notif-top" role="alert" *ngIf="isRegisterSent && !isRegisterSuccess">
     Registration Failed!
 </div>
 <form (ngSubmit)="onSubmit()" [formGroup]="form">
