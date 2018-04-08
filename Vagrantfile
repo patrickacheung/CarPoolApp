@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
-Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+# Commented out below because it doesn't work locally.
+#Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/xenial64"
@@ -11,14 +12,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  config.vm.network "forwarded_port", guest: 80, host: 8171
+  config.vm.network "forwarded_port", guest: 80, host: 8170
   config.ssh.username = "vagrant"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "~/CarPoolApp", "/home/vagrant/CarPoolApp"
+  config.vm.synced_folder "../CarPoolApp", "/home/vagrant/CarPoolApp"
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration so you can fine-tune various
