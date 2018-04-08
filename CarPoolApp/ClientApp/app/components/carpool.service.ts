@@ -12,13 +12,13 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CarpoolService {
-	constructor(private http: Http, private loginService: LoginService) { }
+    constructor(private http: Http, private loginService: LoginService) { }
 
-    private getCarpoolUrl = 'http://localhost:53381/api/CarPool/Get';
     private carpools: Carpool[] = [];
     private testResponse = '';
-	private getCarPoolsUrl = 'http://localhost:5000/api/CarPool/Get';
-	private postCarPoolsUrl = 'http://localhost:5000/api/CarPool/Add';
+	private getCarPoolsUrl = 'http://localhost:53381/api/CarPool/Get';
+    private postCarPoolsUrl = 'http://localhost:53381/api/CarPool/Add';
+    private searchCarPoolsUrl = 'http://localhost:53381/api/CarPool/Get?param={'
 	private emailUrl = 'http://localhost:5000/api/CarPool/Email';
 	private emailSentSubject = new BehaviorSubject<boolean>(false);
 	private emailSuccessSubject = new BehaviorSubject<boolean>(false);
@@ -28,7 +28,56 @@ export class CarpoolService {
 			.map((res: Response) => {
 				return res.json();
 			});
-	}
+    }
+
+    searchCarpools(driver: string, day: string, time: string, location: string): Observable<Carpool[]> {
+        var params = false;
+        var driverAddition = '';
+        var dayAddition = '';
+        var timeAddition = '';
+        var locationAddition = '';
+        var ending = '';
+
+        if (!(driver === '' || driver == null)) {
+            params = true;
+            ending = '}';
+            driverAddition = '\"Driver\":\"' + driver + "\"";
+        }
+        if (!(time === '' || time == null)) {
+            if (params) {
+                timeAddition = ',\"Time":\"' + time + '\"';
+            } else {
+                timeAddition = '\"Time":\"' + time + '\"';
+            }
+            params = true;
+            ending = '}';
+        }
+        if (!(location === '')) {
+            if (params) {
+                locationAddition = ',\"EndLocation":\"' + location + '\"';
+            } else {
+                locationAddition = '\"EndLocation":\"' + location + '\"';
+            }
+            params = true;
+            ending = '}';
+        }
+        if (!(day === '')) {
+            if (params) {
+                dayAddition = ',\"WeekDays":[\"' + day + '\"]';
+            } else {
+                dayAddition = '\"WeekDays":[\"' + day + '\"]';
+            }
+            params = true;
+            ending = '}';
+        }
+
+        var callUrl = this.getCarPoolsUrl + driverAddition + locationAddition + timeAddition + dayAddition;
+
+        return this.http.get(callUrl)
+            .map((res: Response) => {
+                return res.json();
+            });
+    }
 
 	sendEmail(carpool: Carpool): void {
 		const headers = new Headers();

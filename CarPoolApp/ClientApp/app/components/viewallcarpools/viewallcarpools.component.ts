@@ -33,11 +33,14 @@ export class ViewAllCarpoolsComponent implements OnInit {
     }
 
     filter(model: Search): void {
-        this.carpools = this.carpools.filter(
-            carpool => ((model.driver == null || (model.driver === "")) || carpool.driver.indexOf(model.driver) >= 0)
-                && ((model.location == null || (model.location === "")) || carpool.campus.indexOf(model.location) >= 0)
-                && ((model.arrivalTime == null || (model.arrivalTime === "")) || carpool.datetime.toString().indexOf(model.arrivalTime) >= 0)
-                && ((model.day == null || (model.day === "")) || carpool.datetime.toString().indexOf(model.day) >= 0));
+        this.carpoolService.searchCarpools(model.driver, model.day, model.arrivalTime, model.location)
+            .subscribe(carpools => this.carpools = carpools);
+
+        //this.carpools = this.carpools.filter(
+        //    carpool => ((model.driver == null || (model.driver === "")) || carpool.driver.indexOf(model.driver) >= 0)
+        //        && ((model.location == null || (model.location === "")) || carpool.campus.indexOf(model.location) >= 0)
+        //        && ((model.arrivalTime == null || (model.arrivalTime === "")) || carpool.datetime.toString().indexOf(model.arrivalTime) >= 0)
+        //        && ((model.day == null || (model.day === "")) || carpool.datetime.toString().indexOf(model.day) >= 0));
     }
 
     onSubmit(): void {
