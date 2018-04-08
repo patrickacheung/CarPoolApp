@@ -1,4 +1,6 @@
 <h2>Create a Carpool</h2>
+<div class="alert alert-success text-center popup-success" *ngIf="createCarpoolSent && createCarpoolSuccess">Carpool created</div>
+<div class="alert alert-danger text-center popup-danger" *ngIf="createCarpoolSent && !createCarpoolSuccess">Carpool creation failed</div>
 <div class="bottom-padding">
     <form (ngSubmit)="createCarpool()" [formGroup]="form">
         <div class="form-group">
