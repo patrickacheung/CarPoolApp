@@ -6,7 +6,7 @@ export class Carpool {
         startLocation: string,
         endLocation: string,
         weekDays: string[],
-        time: number,
+        time: string,
         additionalDetails: string
     ) { }
 }

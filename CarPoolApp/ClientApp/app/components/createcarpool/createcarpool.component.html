@@ -1,117 +1,78 @@
-<h1>Create a Carpool</h1>
-<form>
-    <div class="form-group">
-        <label for="id">ID</label>
-        <input type="text" class="form-control" id="id">
-    </div>
-    <div class="form-group">
-        <label for="driver">Driver</label>
-        <input type="text" class="form-control" id="driver">
-    </div>
-    <div class="form-group">
-        <label for="seats">Seats</label>
-        <input type="number" class="form-control" id="seats">
-    </div>
-    <div class="form-group">
-        <label for="car">Car Description</label>
-        <textarea class="form-control" id="car"> </textarea>
-    </div>
-    <div class="form-group">
-        <label for="start">Start</label>
-        <select class="form-control" id="start">
-            <option>Abbotsford</option>
-            <option>Burnaby</option>
-            <option>Coquitlam</option>
-            <option>Langley</option>
-            <option>Maple Ridge</option>
-            <option>New Westminster</option>
-            <option>North Vancouver</option>
-            <option>Pitt Meadows</option>
-            <option>Port Coquitlam</option>
-            <option>Port Moody</option>
-            <option>Richmond</option>
-            <option>SFU Burnaby</option>
-            <option>SFU Surrey</option>
-            <option>SFU Vancouver</option>
-            <option>Surrey</option>
-            <option>Vancouver</option>
-            <option>White Rock</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="destination">Destination</label>
-        <select class="form-control" id="destination">
-            <option>Abbotsford</option>
-            <option>Burnaby</option>
-            <option>Coquitlam</option>
-            <option>Langley</option>
-            <option>Maple Ridge</option>
-            <option>New Westminster</option>
-            <option>North Vancouver</option>
-            <option>Pitt Meadows</option>
-            <option>Port Coquitlam</option>
-            <option>Port Moody</option>
-            <option>Richmond</option>
-            <option>SFU Burnaby</option>
-            <option>SFU Surrey</option>
-            <option>SFU Vancouver</option>
-            <option>Surrey</option>
-            <option>Vancouver</option>
-            <option>White Rock</option>
-        </select>
-    </div>
-    <div class="typeSelection">
-        <label class="radio-inline">
-            <input type="radio" name="carpoolType" data-toggle="collapse" data-target="#collapseOne" checked="" data-parent="#accordion" value="1">
-            One-Time
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="carpoolType" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion" value="2">
-            Weekly
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="carpoolType" data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion" value="3">
-            Other
-        </label>
-
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-                <div id="collapseOne" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="control-label" for="date">Date</label>
-                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY HH:MM" type="text" />
-                        </div>
-                    </div>
+<h2>Create a Carpool</h2>
+<div class="alert alert-success text-center popup-success" *ngIf="createCarpoolSent && createCarpoolSuccess">Carpool created</div>
+<div class="alert alert-danger text-center popup-danger" *ngIf="createCarpoolSent && !createCarpoolSuccess">Carpool creation failed</div>
+<div class="bottom-padding">
+    <form (ngSubmit)="createCarpool()" [formGroup]="form">
+        <div class="form-group">
+            <label for="start">Start</label>
+            <select class="form-control" id="start" formControlName="startLocation">
+                <option disabled value=""> -- Select a start location -- </option>
+                <option>Abbotsford</option>
+                <option>Burnaby</option>
+                <option>Coquitlam</option>
+                <option>Langley</option>
+                <option>Maple Ridge</option>
+                <option>New Westminster</option>
+                <option>North Vancouver</option>
+                <option>Pitt Meadows</option>
+                <option>Port Coquitlam</option>
+                <option>Port Moody</option>
+                <option>Richmond</option>
+                <option>Surrey</option>
+                <option>Vancouver</option>
+                <option>White Rock</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="destination">Destination</label>
+            <select class="form-control" id="destination" formControlName="endLocation">
+                <option disabled value=""> -- Select destination campus -- </option>
+                <option>SFU Burnaby</option>
+                <option>SFU Surrey</option>
+                <option>SFU Vancouver</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="seats">Seats</label>
+            <input type="number" class="form-control" id="seats" formControlName="seats">
+        </div>
+        <div class="form-group">
+            <label for="car">Car Description</label>
+            <input type="text" class="form-control" id="car" placeholder="Year and Car Model ie. 1989 Lada" formControlName="carDescription">
+        </div>
+        <div class="form-group">
+            <label for="days">Days</label>
+            <div class="form-check form-check-inline flex-container">
+                <div class="child-item">
+                    <input class="form-check-input" type="checkbox" id="monday" value="Monday" [checked]="mon" (change)="mon = !mon">
+                    <label class="form-check-label" for="monday">Monday</label>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div id="collapseTwo" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="radio-inline">
-                                <textarea class="form-control" name="other" placeholder="Description" rows="3"></textarea>
-                            </label>
-                        </div>
-                    </div>
+                <div class="child-item">
+                    <input class="form-check-input" type="checkbox" id="tuesday" value="Tuesday" [checked]="tues" (change)="tues = !tues">
+                    <label class="form-check-label" for="tuesday">Tuesday</label>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div id="collapseThree" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="radio-inline">
-                                <textarea class="form-control" name="other" placeholder="Description" rows="3"></textarea>
-                            </label>
-                        </div>
-                    </div>
+                <div class="child-item">
+                    <input class="form-check-input" type="checkbox" id="wednesday" value="Wednesday" [checked]="wed" (change)="wed = !wed">
+                    <label class="form-check-label" for="wednesday">Wednesday</label>
+                </div>
+                <div class="child-item">
+                    <input class="form-check-input" type="checkbox" id="thursday" value="Thursday" [checked]="thurs" (change)="thurs = !thurs">
+                    <label class="form-check-label" for="thursday">Thursday</label>
+                </div>
+                <div class="child-item">
+                    <input class="form-check-input" type="checkbox" id="friday" value="Friday" [checked]="fri" (change)="fri = !fri">
+                    <label class="form-check-label" for="friday">Friday</label>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="notes">Additional Details</label>
-        <textarea class="form-control" id="notes"> </textarea>
-    </div>
-    <button type="submit" class="btn btn-success">Create Carpool</button>
-</form>
+        <div class="form-group">
+                <label for="time">Leave Time</label>
+                <input class="form-control" id="time" placeholder="HH:MM" formControlName="time">
+        </div>
+        <div class="form-group">
+            <label for="notes">Additional Details</label>
+            <textarea class="form-control" id="notes" [(ngModel)]="additionalDetails" [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Create Carpool</button>
+    </form>
+</div>
