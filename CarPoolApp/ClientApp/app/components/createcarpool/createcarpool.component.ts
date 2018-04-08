@@ -58,28 +58,9 @@ export class CreateCarpoolComponent implements OnInit {
 }
 
 function isTime(c: FormControl) {
-    const timeComp: string[] = c.value.split(":");
-    if (timeComp.length !== 2) {
-        return {
-            isTime: {
-                valid: false
-            }
-        }
-    }
+    const TIME_REGEX = /^(?:2[0-3]|[01]?[0-9]):[0-5][0-9]$/;
 
-    if (timeComp[0].length === 2 && timeComp[1].length === 2) {
-        if (!isNumeric(timeComp[0]) || !isNumeric(timeComp[1])) {
-            return {
-                isTime: {
-                    valid: false
-                }
-            }
-        }
-
-        return null;
-    }
-
-    return {
+    return TIME_REGEX.test(c.value) ? null : {
         isTime: {
             valid: false
         }

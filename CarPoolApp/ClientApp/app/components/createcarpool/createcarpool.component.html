@@ -73,7 +73,7 @@
         </div>
         <div class="form-group">
                 <label for="time">Leave Time</label>
-                <input class="form-control" id="time" placeholder="HH:MM" formControlName="time">
+                <input class="form-control" id="time" placeholder="HH:MM - 24 hour time" formControlName="time">
         </div>
         <div class="alert alert-danger notif-form" *ngIf="form.controls['time'].hasError('required') && form.controls['time'].touched">Time is required</div>
         <div class="alert alert-danger notif-form" *ngIf="form.controls['time'].hasError('isTime') && form.controls['time'].touched">Invalid time</div>
