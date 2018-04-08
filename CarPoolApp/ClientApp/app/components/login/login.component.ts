@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     isLoggedIn: boolean;
     isLoginCorrect: boolean;
     showLogin: boolean;
+    loginSent: boolean;
 
     constructor(private loginService: LoginService) {
         this.loginModel = new Login();
@@ -30,6 +31,10 @@ export class LoginComponent implements OnInit {
 
         this.loginService.showLogin().subscribe((showLogin: boolean) => {
             this.showLogin = showLogin;
+        });
+
+        this.loginService.isLoginSent().subscribe((loginSent: boolean) => {
+            this.loginSent = loginSent;
         });
     }
 
