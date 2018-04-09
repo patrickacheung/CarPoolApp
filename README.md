@@ -4,13 +4,11 @@ This is an application for SFU students to organize carpools. The application ha
 
 
 User data:
-
 Login is required to create, login and email carpools and users.
 No accounts or carpools are created in the database, but can be created through the application.
 
 
 Instructions for deploying:
-
 git clone  
 cd  
 vagrant up  
