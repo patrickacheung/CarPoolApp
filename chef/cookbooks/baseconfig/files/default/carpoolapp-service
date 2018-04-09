@@ -1,0 +1,13 @@
+[Unit]
+Description=CarPoolApp running on Ubuntu
+
+[Service]
+WorkingDirectory=/home/vagrant/CarPoolApp/CarPoolApp
+ExecStart=/usr/bin/dotnet /home/vagrant/CarPoolApp/CarPoolApp/bin/CarPoolApp.dll
+Restart=always
+RestartSec=10  # Restart service after 10 seconds if dotnet service crashes
+SyslogIdentifier=dotnet-CarPoolApp
+User=vagrant
+
+[Install]
+WantedBy=multi-user.target
