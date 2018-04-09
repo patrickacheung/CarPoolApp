@@ -73,9 +73,13 @@ apt_package 'unixodbc-dev'
 mssql_pwd = '#Password3'
 execute 'setup mssql server' do
   command "sudo MSSQL_PID=Developer ACCEPT_EULA=Y MSSQL_SA_PASSWORD='#{mssql_pwd}' /opt/mssql/bin/mssql-conf -n setup"
+  action :nothing
+  subscribes :run, 'apt_package[mssql-server]', :immediately
 end
 execute 'import sql' do
   command "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '#{mssql_pwd}' -i '/home/vagrant/CarPoolApp/createTables.sql'"
+  action :nothing
+  subscribes :run, 'apt_package[unixodbc-dev]', :immediately
 end
 
 # Build and publish project.
