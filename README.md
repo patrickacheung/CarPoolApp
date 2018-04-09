@@ -8,9 +8,9 @@ No accounts or carpools are created in the database, but can be created through 
 
 
 ## Instructions for deploying:  
-git clone  
-cd  
-vagrant up  
+$ git clone git@csil-git1.cs.surrey.sfu.ca:TeamRocket/CarPoolApp.git  
+$ cd CarPoolApp  
+$ vagrant up  
 
 http://localhost:5000/
 
