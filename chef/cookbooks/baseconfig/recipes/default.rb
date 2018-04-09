@@ -9,24 +9,12 @@ end
 # Base configuration recipe in Chef.
 package "wget"
 package "ntp"
-package "nginx"
-#package "git"
 package "ack-grep"
 cookbook_file "ntp.conf" do
   path "/etc/ntp.conf"
 end
 execute 'ntp_restart' do
   command 'service ntp restart'
-end
-
-# Reconfigure nginx as reverse proxy for our application.
-cookbook_file '/etc/nginx/sites-available/default' do
-  source 'nginx-carpoolapp'
-  action :create
-end
-# Restart nginx service to reload config.
-service 'nginx' do
-  action :restart
 end
 
 # nodejs and npm apt repo setup.
@@ -121,8 +109,7 @@ execute 'check_app_status' do
   subscribes :run, 'ruby_block[server_first_ping_wait]', :delayed
 end
 execute 'server_first_ping' do # first request is super slow
-  command 'curl localhost'
+  command 'curl 0.0.0.0:5000'
   action :nothing
   subscribes :run, 'execute[check_app_status]', :delayed
 end
-
