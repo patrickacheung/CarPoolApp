@@ -17,6 +17,12 @@ export class ViewAllCarpoolsComponent implements OnInit {
     location: string;
     searchModel: Search;
     day: boolean[] = [];
+    mon: boolean = true;
+    tues: boolean = true;
+    wed: boolean = true;
+    thurs: boolean = true;
+    fri: boolean = true;
+
 
     constructor(private carpoolService: CarpoolService) {
         this.searchModel = new Search();
@@ -49,11 +55,13 @@ export class ViewAllCarpoolsComponent implements OnInit {
 
         this.day = [];
 
-        this.day.push(this.searchModel.monday);
-        this.day.push(this.searchModel.tuesday);
-        this.day.push(this.searchModel.wednesday);
-        this.day.push(this.searchModel.thursday);
-        this.day.push(this.searchModel.friday);
+        this.day.push(this.mon);
+        this.day.push(this.tues);
+        this.day.push(this.wed);
+        this.day.push(this.thurs);
+        this.day.push(this.fri);
+
+        console.log(this.day);
 
         this.carpools = this.originalCarpools;
         this.filter(this.searchModel);
