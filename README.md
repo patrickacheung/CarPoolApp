@@ -9,11 +9,9 @@ No accounts or carpools are created in the database, but can be created through 
 
 ## Instructions for deploying:  
 ~~~~
-$ git clone git@csil-git1.cs.surrey.sfu.ca:TeamRocket/CarPoolApp.git  
+$ git clone -b dockerize git@github.com:patrickacheung/CarPoolApp.git
 $ cd CarPoolApp  
-$ vagrant up   
+$ docker-compose up   
 ~~~~
 
 http://localhost:5000/
-
-Not yet deployed, having administrative issues with the server.
